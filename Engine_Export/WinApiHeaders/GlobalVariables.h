@@ -2,9 +2,9 @@
 #define Engine_GlobalVariables_h__
 #include "stdafx.h"
 //#include "WinSetUp.h"
-class CMainWinSetUp;
+//class CMainWinSetUp;
 
-	extern int g_ClientWidth, g_ClientHeight;
+	//extern int g_ClientWidth, g_ClientHeight;
 	extern HINSTANCE g_hInst;
 	extern HWND g_hWnd;
 	extern void* g_MainWnd;

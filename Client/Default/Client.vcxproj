@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Headers;../Source;../../Engine_Export;../../Engine_Export/WinApiHeaders;../../GenericHeaders;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Headers;../Source;../../Engine_Export;../../Engine_Export/SystemHeaders;../../Engine_Export/WinApiHeaders;../../GenericHeaders</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Headers;../Source;../../Engine_Export;../../Engine_Export/WinApiHeaders;../../GenericHeaders;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Headers;../Source;../../Engine_Export;../../Engine_Export/SystemHeaders;../../Engine_Export/WinApiHeaders;../../GenericHeaders</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

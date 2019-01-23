@@ -5,10 +5,10 @@ using namespace WinSet;
 using namespace std;
 
 
-	int g_ClientWidth = 800, g_ClientHeight = 600;
-	HINSTANCE g_hInst;
-	HWND g_hWnd;
-	void* g_MainWnd = nullptr;
+//_declspec(dllexport) int g_ClientWidth = 800, g_ClientHeight = 600;
+_declspec(dllexport) HINSTANCE g_hInst;
+_declspec(dllexport) HWND g_hWnd;
+_declspec(dllexport) void* g_MainWnd = nullptr;
 	//void** g_Wnds = nullptr; //나중에 추가할 것
 
 	//int wndCount = 0;
@@ -20,6 +20,8 @@ CMainWinSetUp::CMainWinSetUp(HINSTANCE hinstance)
 	, m_hWnd(nullptr)
 	, isWcCustomize(false)
 	, isPaused(false)
+	,m_ClientHeight(600)
+	,m_ClientWidth(800)
 {
 	wcscpy_s(m_WndCaption, L"d3d App");
 	g_MainWnd = this;
@@ -89,7 +91,7 @@ bool WinSet::CMainWinSetUp::InitWindow()
 		return false;
 	}
 
-	RECT R = { 0, 0, g_ClientWidth, g_ClientHeight };
+	RECT R = { 0, 0, m_ClientWidth, m_ClientHeight };
 	AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
 	int width = R.right - R.left;
 	int height = R.bottom - R.top;

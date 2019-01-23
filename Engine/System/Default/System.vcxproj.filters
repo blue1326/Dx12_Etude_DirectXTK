@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00.DxDevice">
+      <UniqueIdentifier>{a3677d09-9e63-4def-bbbd-75d9ec5f3e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.AppCore">
+      <UniqueIdentifier>{70f5d5bb-9f35-4a1d-8e07-bf6f1fb75c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.AppCore\00.Core_Game">
+      <UniqueIdentifier>{4174141f-f775-44d6-ae25-340c398bf320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Default">
+      <UniqueIdentifier>{d590b542-1632-46bd-9913-c584630943d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Default\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="99.Default\소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="99.Default\리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="98.Export">
+      <UniqueIdentifier>{26b496b1-73e7-4c89-865e-52e1e95d3c04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Timer">
+      <UniqueIdentifier>{77570169-ed1e-47ca-9980-05214f3cb6a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Utility">
+      <UniqueIdentifier>{c0ddc4ef-26ab-444e-a106-7c379e68cd4d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>99.Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\DxDevice.h">
+      <Filter>00.DxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Core_Game.h">
+      <Filter>01.AppCore\00.Core_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\AppCore.h">
+      <Filter>01.AppCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Interface.h">
+      <Filter>98.Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Exception.h">
+      <Filter>98.Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Engine_Export\Export_System.h">
+      <Filter>98.Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Timer.h">
+      <Filter>02.Timer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>99.Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>99.Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DxDevice.cpp">
+      <Filter>00.DxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\AppCore.cpp">
+      <Filter>01.AppCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core_Game.cpp">
+      <Filter>01.AppCore\00.Core_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Interface.cpp">
+      <Filter>98.Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Exception.cpp">
+      <Filter>98.Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Timer.cpp">
+      <Filter>02.Timer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

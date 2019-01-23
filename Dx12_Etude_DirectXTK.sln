@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowsAPI", "Engine\WinAPI
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Default\Client.vcxproj", "{9F8AA73F-EBAD-4664-B4E3-7D49C6811A76}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "System", "Engine\System\Default\System.vcxproj", "{2369E98E-F495-4626-A1EC-6EA2CE88531E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{9F8AA73F-EBAD-4664-B4E3-7D49C6811A76}.Debug|x64.Build.0 = Debug|x64
 		{9F8AA73F-EBAD-4664-B4E3-7D49C6811A76}.Release|x64.ActiveCfg = Debug|x64
 		{9F8AA73F-EBAD-4664-B4E3-7D49C6811A76}.Release|x64.Build.0 = Debug|x64
+		{2369E98E-F495-4626-A1EC-6EA2CE88531E}.Debug|x64.ActiveCfg = Debug|x64
+		{2369E98E-F495-4626-A1EC-6EA2CE88531E}.Debug|x64.Build.0 = Debug|x64
+		{2369E98E-F495-4626-A1EC-6EA2CE88531E}.Release|x64.ActiveCfg = Release|x64
+		{2369E98E-F495-4626-A1EC-6EA2CE88531E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,7 +21,8 @@ namespace WinSet
 
 		virtual int Run();
 
-
+		int GetClientWidth(){ return m_ClientWidth; }
+		int GetClientHeight() { return m_ClientHeight; }
 	protected:
 		HINSTANCE m_hAppinst;
 		HWND m_hWnd;
@@ -30,6 +31,8 @@ namespace WinSet
 		int m_SubSysIdx;
 		bool isPaused;
 		wchar_t m_WndCaption[255];
+
+		int m_ClientWidth, m_ClientHeight;
 		//wstring m_WndCaption;
 	};
 }
