@@ -12,20 +12,20 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{9F8AA73F-EBAD-4664-B4E3-7D49C6811A76}</ProjectGuid>
+    <ProjectGuid>{A2DA8470-AFA1-44D4-94F4-84B42594D79D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Client</RootNamespace>
+    <RootNamespace>Components</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -57,14 +57,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;COMPONENTS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Headers;../Source;../../Engine_Export;../../Engine_Export/SystemHeaders;../../Engine_Export/ArchitectureHeaders;../../Engine_Export/ComponentHeaders;../../Engine_Export/WinApiHeaders;../../GenericHeaders</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Headers;../Source;../../../Engine_Export;../../../Engine_Export/SystemHeaders;../../../GenericHeaders;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>../batch/Copy.bat;</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -74,9 +77,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;COMPONENTS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Headers;../Source;../../Engine_Export;../../Engine_Export/SystemHeaders;../../Engine_Export/ArchitectureHeaders;../../Engine_Export/ComponentHeaders;../../Engine_Export/WinApiHeaders;../../GenericHeaders</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Headers;../Source;../../../Engine_Export;../../../Engine_Export/SystemHeaders;../../../GenericHeaders;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,43 +87,41 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>../batch/Copy.bat;</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Headers\Derived_MainWnd.h" />
-    <ClInclude Include="..\Headers\GenericHeader.h" />
-    <ClInclude Include="..\Headers\Main.h" />
-    <ClInclude Include="..\Headers\ImportHeaders.h" />
-    <ClInclude Include="..\Headers\ImportLib.h" />
-    <ClInclude Include="Resource.h" />
+    <ClInclude Include="..\..\..\Engine_Export\Export_Components.h" />
+    <ClInclude Include="..\Headers\Camera.h" />
+    <ClInclude Include="..\Headers\Component.h" />
+    <ClInclude Include="..\Headers\Renderer.h" />
+    <ClInclude Include="..\Headers\Transform.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\Derived_MainWnd.cpp" />
-    <ClCompile Include="..\source\Main.cpp" />
+    <ClCompile Include="..\Source\Camera.cpp" />
+    <ClCompile Include="..\Source\Component.cpp" />
+    <ClCompile Include="..\Source\Renderer.cpp" />
+    <ClCompile Include="..\Source\Transform.cpp" />
+    <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Client.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Client.ico" />
-    <Image Include="small.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets" Condition="Exists('..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets')" />
+    <Import Project="..\..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets" Condition="Exists('..\..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\directxtk12_desktop_2015.2018.11.20.1\build\native\directxtk12_desktop_2015.targets'))" />
   </Target>
 </Project>

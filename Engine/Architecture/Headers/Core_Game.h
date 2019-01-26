@@ -3,9 +3,13 @@
 #include "AppCore.h"
 #include "DxDevice.h"
 #include "Timer.h"
+//#include "Renderer.h"
+#include "Component.h"
+using namespace Engine::System;
+using namespace Engine::Components;
 namespace Engine
 {
-	namespace System
+	namespace Architecture
 	{
 		class AppCore_Game :public AppCore
 		{
@@ -41,10 +45,12 @@ namespace Engine
 			_declspec(dllexport) void LateUpdate();
 			_declspec(dllexport) void Render();
 			void Clear();
-
+		private:
 			void CreateDeviceDependentResources();
 			void CreateWindowSizeDependentResources();
 
+		private:
+			void CreateArchitecture();
 
 
 		private:
@@ -54,6 +60,9 @@ namespace Engine
 			shared_ptr<DirectX::Mouse> m_Mouse;
 			shared_ptr<CTimer> m_MainTimer;
 			///shared_ptr<void> tmp;
+
+			shared_ptr<CComponent> m_Renderer;
+
 
 			std::unique_ptr<DirectX::GraphicsMemory> m_graphicsMemory;
 			

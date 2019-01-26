@@ -33,6 +33,11 @@ namespace WinSet
 		wchar_t m_WndCaption[255];
 
 		int m_ClientWidth, m_ClientHeight;
+
+		bool isSizemove;
+		bool isSuspend;
+		bool isMinimized;
+		bool isfullscreen;
 		//wstring m_WndCaption;
 	};
 }

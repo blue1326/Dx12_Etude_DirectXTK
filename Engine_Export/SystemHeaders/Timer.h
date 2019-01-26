@@ -13,7 +13,7 @@ namespace Engine
 	namespace System
 	{
 		typedef __int64 HINT;
-		class CTimer
+		class _declspec(dllexport) CTimer
 		{
 		public:
 			CTimer();
@@ -28,7 +28,7 @@ namespace Engine
 			void Start(); //Call When unpaused
 			void Stop(); //Call when paused
 			void Tick(); //Call every frames
-			_declspec(dllexport) static shared_ptr<CTimer> CreateTimer();
+			static shared_ptr<CTimer> CreateTimer();
 		private:
 			double m_SecondsPerCount;
 			double m_DeltaTime;

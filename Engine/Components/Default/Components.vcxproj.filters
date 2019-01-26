@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="99.Default">
+      <UniqueIdentifier>{9fe40708-90ac-495b-88c9-62b4eef58aff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Default\리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="99.Default\소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="99.Default\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="00.Components">
+      <UniqueIdentifier>{9cccf7af-bf72-46fb-afb0-b8174e4d1a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Components\00.Renderer">
+      <UniqueIdentifier>{c5fe6a95-d47e-4c86-b6e0-6a716537dcb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Components\01.Transform">
+      <UniqueIdentifier>{5a297475-ecbf-4e6a-98cc-e405c8bf2a2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Components\NewFilter2">
+      <UniqueIdentifier>{3c654938-58de-422c-92ed-4a1b65f5d1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Components\02.Camera">
+      <UniqueIdentifier>{4d434f71-57ac-470b-b95f-ea3b7be65e5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Exports">
+      <UniqueIdentifier>{3748132a-911b-4224-a8c6-1d6029539f10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>99.Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Component.h">
+      <Filter>00.Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Camera.h">
+      <Filter>00.Components\02.Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Renderer.h">
+      <Filter>00.Components\00.Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Transform.h">
+      <Filter>00.Components\01.Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Engine_Export\Export_Components.h">
+      <Filter>98.Exports</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>99.Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>99.Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Component.cpp">
+      <Filter>00.Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Camera.cpp">
+      <Filter>00.Components\02.Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Renderer.cpp">
+      <Filter>00.Components\00.Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Transform.cpp">
+      <Filter>00.Components\01.Transform</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

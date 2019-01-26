@@ -9,10 +9,10 @@ using namespace std;
 _declspec(dllexport) HINSTANCE g_hInst;
 _declspec(dllexport) HWND g_hWnd;
 _declspec(dllexport) void* g_MainWnd = nullptr;
-	//void** g_Wnds = nullptr; //나중에 추가할 것
+//void** g_Wnds = nullptr; //나중에 추가할 것
 
-	//int wndCount = 0;
-	//int maxWnd = 10;
+//int wndCount = 0;
+//int maxWnd = 10;
 
 
 CMainWinSetUp::CMainWinSetUp(HINSTANCE hinstance)
@@ -20,15 +20,19 @@ CMainWinSetUp::CMainWinSetUp(HINSTANCE hinstance)
 	, m_hWnd(nullptr)
 	, isWcCustomize(false)
 	, isPaused(false)
-	,m_ClientHeight(600)
-	,m_ClientWidth(800)
+	, m_ClientHeight(600)
+	, m_ClientWidth(800)
+	, isSizemove(false)
+	, isSuspend(false)
+	, isMinimized(false)
+	, isfullscreen(false)
 {
 	wcscpy_s(m_WndCaption, L"d3d App");
 	g_MainWnd = this;
-	
+
 }
 
-WinSet::CMainWinSetUp::CMainWinSetUp(HINSTANCE hinstance, WNDCLASSEXW _wc,const wchar_t* _caption)
+WinSet::CMainWinSetUp::CMainWinSetUp(HINSTANCE hinstance, WNDCLASSEXW _wc, const wchar_t* _caption)
 	:m_hAppinst(nullptr)
 	, m_hWnd(nullptr)
 	, m_WC(_wc)
@@ -80,9 +84,9 @@ bool WinSet::CMainWinSetUp::InitWindow()
 	}
 	else
 	{
-		
 
-		
+
+
 		m_WC.lpfnWndProc = SubWndProc;
 	}
 	if (!RegisterClassExW(&m_WC))
@@ -116,14 +120,14 @@ bool WinSet::CMainWinSetUp::InitWindow()
 LRESULT WinSet::CMainWinSetUp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
-    {
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hwnd, msg, wParam, lParam);
-    }
-    return 0;
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hwnd, msg, wParam, lParam);
+	}
+	return 0;
 }
 
 
@@ -133,7 +137,7 @@ LRESULT WinSet::CMainWinSetUp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARA
 int WinSet::CMainWinSetUp::Run()
 {
 	MSG msg = { 0 };
-	
+
 	while (msg.message != WM_QUIT)
 	{
 		//peeking Windows Message
@@ -145,11 +149,11 @@ int WinSet::CMainWinSetUp::Run()
 		//OtherWise aonther actions
 		else
 		{
-	
+
 
 			if (!isPaused)
 			{
-	
+
 
 			}
 			else

@@ -21,8 +21,7 @@ public:
 	void DeviceInitialize();
 
 private:
-
-
+	shared_ptr<Engine::Architecture::AppCore_Game> m_AppInst;
 
 };
 

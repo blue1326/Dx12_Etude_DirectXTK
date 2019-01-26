@@ -1,28 +1,34 @@
 #include "stdafx.h"
 #include "Core_Game.h"
+#include "ComponentHolder.h"
 
-Engine::System::AppCore_Game::AppCore_Game() noexcept(false)
+#include "Export_Components.h"
+//#include "Renderer.h"
+//using namespace Engine::System;
+//using namespace Engine::Components;
+Engine::Architecture::AppCore_Game::AppCore_Game() noexcept(false)
 {
 	m_Device = DxDevice::CreateDevice();
 	m_Device->RegisterDeviceNotify(this);
 }
 
-Engine::System::AppCore_Game::~AppCore_Game()
+Engine::Architecture::AppCore_Game::~AppCore_Game()
 {
+	CComponentHolder::GetInstance()->Destroy();
 	if (m_Device)
 	{
 		m_Device->WaitForGpu();
 	}
 }
 
-shared_ptr<Engine::System::AppCore_Game> Engine::System::AppCore_Game::Create(HWND window, int width, int height)
+shared_ptr<Engine::Architecture::AppCore_Game> Engine::Architecture::AppCore_Game::Create(HWND window, int width, int height)
 {
-	shared_ptr<AppCore_Game> inst = shared_ptr<Engine::System::AppCore_Game>(new AppCore_Game);
+	shared_ptr<AppCore_Game> inst = shared_ptr<Engine::Architecture::AppCore_Game>(new AppCore_Game);
 	inst->Initialize(window, width, height);
 	return inst;
 }
 
-void Engine::System::AppCore_Game::Initialize(HWND window, int width, int height)
+void Engine::Architecture::AppCore_Game::Initialize(HWND window, int width, int height)
 {
 	m_MainTimer = CTimer::CreateTimer();
 	//m_Gamepad = make_shared<DirectX::GamePad>();
@@ -38,41 +44,42 @@ void Engine::System::AppCore_Game::Initialize(HWND window, int width, int height
 	m_Device->CreateWindowSizeDependentResources();
 	CreateWindowSizeDependentResources();
 
+	CreateArchitecture();
 
 }
 
-void Engine::System::AppCore_Game::Tick()
+void Engine::Architecture::AppCore_Game::Tick()
 {
 	m_MainTimer->Tick();
 }
 
-void Engine::System::AppCore_Game::OnDeviceLost()
+void Engine::Architecture::AppCore_Game::OnDeviceLost()
 {
 
 }
 
-void Engine::System::AppCore_Game::OnDeviceRestored()
+void Engine::Architecture::AppCore_Game::OnDeviceRestored()
 {
 	CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }
 
-void Engine::System::AppCore_Game::OnActivated()
+void Engine::Architecture::AppCore_Game::OnActivated()
 {
 
 }
 
-void Engine::System::AppCore_Game::OnDeactivated()
+void Engine::Architecture::AppCore_Game::OnDeactivated()
 {
 
 }
 
-void Engine::System::AppCore_Game::OnSuspending()
+void Engine::Architecture::AppCore_Game::OnSuspending()
 {
 
 }
 
-void Engine::System::AppCore_Game::OnResuming()
+void Engine::Architecture::AppCore_Game::OnResuming()
 {
 	m_MainTimer->Start();
 	//m_gamePadButtons.Reset();
@@ -80,13 +87,13 @@ void Engine::System::AppCore_Game::OnResuming()
 	//m_audEngine->Resume();
 }
 
-void Engine::System::AppCore_Game::OnWindowMoved()
+void Engine::Architecture::AppCore_Game::OnWindowMoved()
 {
 	auto size = m_Device->GetOutputSize();
 	m_Device->WindowSizeChanged(size.right, size.bottom);
 }
 
-void Engine::System::AppCore_Game::OnWindowSizeChanged(int width, int height)
+void Engine::Architecture::AppCore_Game::OnWindowSizeChanged(int width, int height)
 {
 	if (!m_Device->WindowSizeChanged(width, height))
 		return;
@@ -94,35 +101,37 @@ void Engine::System::AppCore_Game::OnWindowSizeChanged(int width, int height)
 	CreateWindowSizeDependentResources();
 }
 
-void Engine::System::AppCore_Game::NewAudioDevice()
+void Engine::Architecture::AppCore_Game::NewAudioDevice()
 {
 
 }
 
-void Engine::System::AppCore_Game::GetDefaultSize(int& width, int& height) const
+void Engine::Architecture::AppCore_Game::GetDefaultSize(int& width, int& height) const
 {
 	width = 800;
 	height = 600;
 }
 
-void Engine::System::AppCore_Game::Update()
+void Engine::Architecture::AppCore_Game::Update()
 {
 	PIXBeginEvent(PIX_COLOR_DEFAULT, L"Update");
 	PIXEndEvent();
 }
 
-void Engine::System::AppCore_Game::LateUpdate()
+void Engine::Architecture::AppCore_Game::LateUpdate()
 {
 	PIXBeginEvent(PIX_COLOR_DEFAULT, L"LateUpdate");
 	PIXEndEvent();
 }
 
-void Engine::System::AppCore_Game::Render()
+void Engine::Architecture::AppCore_Game::Render()
 {
 	m_Device->Prepare();
 	Clear();
 	auto cmdlist = m_Device->GetCommandList();
 	PIXBeginEvent(cmdlist, PIX_COLOR_DEFAULT, L"Render");
+	
+	dynamic_cast<CRenderer*>(m_Renderer.get())->Render();
 	
 	PIXEndEvent(cmdlist);
 
@@ -134,7 +143,7 @@ void Engine::System::AppCore_Game::Render()
 	PIXEndEvent(m_Device->GetCommandQueue());
 }
 
-void Engine::System::AppCore_Game::Clear()
+void Engine::Architecture::AppCore_Game::Clear()
 {
 	
 	auto commandList = m_Device->GetCommandList();
@@ -158,13 +167,13 @@ void Engine::System::AppCore_Game::Clear()
 	PIXEndEvent(commandList);
 }
 
-void Engine::System::AppCore_Game::CreateDeviceDependentResources()
+void Engine::Architecture::AppCore_Game::CreateDeviceDependentResources()
 {
 	auto device = m_Device->GetD3DDevice();
 	m_graphicsMemory = make_unique<DirectX::GraphicsMemory>(device);
 }
 
-void Engine::System::AppCore_Game::CreateWindowSizeDependentResources()
+void Engine::Architecture::AppCore_Game::CreateWindowSizeDependentResources()
 {
 	auto size = m_Device->GetOutputSize();
 	float aspectRatio = float(size.right) / float(size.bottom);
@@ -183,4 +192,12 @@ void Engine::System::AppCore_Game::CreateWindowSizeDependentResources()
 		100.0f);
 	//m_Device->GetScreenViewport();
 
+}
+
+void Engine::Architecture::AppCore_Game::CreateArchitecture()
+{
+	shared_ptr<CComponent> inst = CRenderer::Create(m_Device);
+	m_Renderer = inst;
+	CComponentHolder::GetInstance()->AddOriginComponent("Renderer", inst);
+	
 }

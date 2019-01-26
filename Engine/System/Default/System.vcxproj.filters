@@ -45,12 +45,6 @@
     <ClInclude Include="..\Headers\DxDevice.h">
       <Filter>00.DxDevice</Filter>
     </ClInclude>
-    <ClInclude Include="..\Headers\Core_Game.h">
-      <Filter>01.AppCore\00.Core_Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Headers\AppCore.h">
-      <Filter>01.AppCore</Filter>
-    </ClInclude>
     <ClInclude Include="..\Headers\Interface.h">
       <Filter>98.Utility</Filter>
     </ClInclude>
@@ -73,12 +67,6 @@
     </ClCompile>
     <ClCompile Include="..\Source\DxDevice.cpp">
       <Filter>00.DxDevice</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\AppCore.cpp">
-      <Filter>01.AppCore</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Core_Game.cpp">
-      <Filter>01.AppCore\00.Core_Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Interface.cpp">
       <Filter>98.Utility</Filter>

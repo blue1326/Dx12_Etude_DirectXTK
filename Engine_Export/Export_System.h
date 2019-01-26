@@ -2,5 +2,5 @@
 #define Export_System_h__
 
 #include "DxDevice.h"
-#include "Core_Game.h"
+#include "Timer.h"
 #endif // Export_System_h__

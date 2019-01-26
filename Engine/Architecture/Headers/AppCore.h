@@ -2,11 +2,12 @@
 #define Engine_AppCore_h__
 #include "Interface.h"
 
+
 namespace Engine
 {
-	namespace System
+	namespace Architecture
 	{
-		class AppCore : public IDeviceNotify
+		class AppCore : public Engine::System::IDeviceNotify
 		{
 		public:
 			AppCore();

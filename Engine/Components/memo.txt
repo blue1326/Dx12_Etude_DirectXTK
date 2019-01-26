@@ -1,0 +1,4 @@
+$(SolutionDir)\bin\
+./;../Headers;../Source;../../../Engine_Export;../../../Engine_Export/SystemHeaders;../../../GenericHeaders;
+
+../batch/Copy.bat;
