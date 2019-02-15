@@ -3,10 +3,16 @@
 #include "ComponentHolder.h"
 
 #include "Export_Components.h"
+#include "Font.h"
+#include "DebugObject.h"
+#include "Texture.h"
+#include "Phase_Load.h"
 //#include "Renderer.h"
 //using namespace Engine::System;
 //using namespace Engine::Components;
+using namespace DirectX;
 Engine::Architecture::AppCore_Game::AppCore_Game() noexcept(false)
+	:m_fTimeAcc(0.f)
 {
 	m_Device = DxDevice::CreateDevice();
 	m_Device->RegisterDeviceNotify(this);
@@ -44,8 +50,14 @@ void Engine::Architecture::AppCore_Game::Initialize(HWND window, int width, int 
 	m_Device->CreateWindowSizeDependentResources();
 	CreateWindowSizeDependentResources();
 
-	CreateArchitecture();
+	LoadPreLoadComponents();
 
+	m_DebugObjects[L"FPS"] = CDebugObject::Create(m_Device);
+	m_DebugObjects[L"FPS"]->Init_Object();
+	static_cast<CDebugObject*>(m_DebugObjects[L"FPS"].get())->SetDbgMessage(L"FPS");
+	m_Phase[L"Load"] = CPhase_Load::Create(m_Device);
+	m_Phase[L"Load"]->Prepare_Phase();
+	
 }
 
 void Engine::Architecture::AppCore_Game::Tick()
@@ -115,6 +127,7 @@ void Engine::Architecture::AppCore_Game::GetDefaultSize(int& width, int& height)
 void Engine::Architecture::AppCore_Game::Update()
 {
 	PIXBeginEvent(PIX_COLOR_DEFAULT, L"Update");
+	m_Phase[L"Load"]->Update_Phase(m_MainTimer);
 	PIXEndEvent();
 }
 
@@ -131,8 +144,30 @@ void Engine::Architecture::AppCore_Game::Render()
 	auto cmdlist = m_Device->GetCommandList();
 	PIXBeginEvent(cmdlist, PIX_COLOR_DEFAULT, L"Render");
 	
-	dynamic_cast<CRenderer*>(m_Renderer.get())->Render();
+	for (const auto &j : m_DebugObjects)
+	{
+		j.second->Render_Object(cmdlist);
+	}
+	dynamic_cast<CRenderer*>(m_Renderer.get())->Render(cmdlist);
 	
+	m_Phase[L"Load"]->Render_Phase(cmdlist);
+
+
+	/*CFont* font = dynamic_cast<CFont*>(CComponentHolder::GetInstance()->Get_Component("BasicFont").get());
+	ID3D12DescriptorHeap* heaps[] = { font->GetHeap()->Heap() };
+	cmdlist->SetDescriptorHeaps(_countof(heaps), heaps);
+	PIXBeginEvent(cmdlist, PIX_COLOR_DEFAULT, L"Draw Sprite Font");
+
+	font->GetBatch()->Begin(cmdlist);
+	font->GetFont()->DrawString(font->GetBatch(), L"sample", XMFLOAT2(100, 10), Colors::Yellow);
+
+	font->GetFont()->DrawString(font->GetBatch(), L"sample2", XMFLOAT2(100, 20), Colors::Yellow);
+	font->GetBatch()->End();
+
+	PIXEndEvent(cmdlist);*/
+
+
+	//dynamic_cast<CFont*>(CComponentHolder::GetInstance()->Get_Component("BasicFont").get())->Render();
 	PIXEndEvent(cmdlist);
 
 
@@ -194,10 +229,63 @@ void Engine::Architecture::AppCore_Game::CreateWindowSizeDependentResources()
 
 }
 
-void Engine::Architecture::AppCore_Game::CreateArchitecture()
+void Engine::Architecture::AppCore_Game::LoadPreLoadComponents()
 {
 	shared_ptr<CComponent> inst = CRenderer::Create(m_Device);
 	m_Renderer = inst;
-	CComponentHolder::GetInstance()->AddOriginComponent("Renderer", inst);
-	
+	CComponentHolder::GetInstance()->AddOriginComponent(L"Renderer", inst);
+	//클라이언트 기준 상대경로
+	inst = CFont::Create(m_Device, L"../../Font/Basic10.spritefont");
+	inst->Init_Component();
+	CComponentHolder::GetInstance()->AddOriginComponent(L"BasicFont", inst);
+
+	inst.reset();
+	inst = CTexture::Create(m_Device, L"../../Textures/windowslogo.dds");
+	inst->Init_Component();
+}
+
+bool Engine::Architecture::AppCore_Game::CalculateFrameStats()
+{
+	bool isLimit = false;
+	static int frameCnt = 0;
+	static int FrameCntLimit = 0;
+	static float timeElapsed = 0.0f;
+	frameCnt++;
+	m_fTimeAcc += m_MainTimer->DeltaTime();
+	if (m_fTimeAcc > m_CallPerSec)
+	{
+		FrameCntLimit++;
+		m_fTimeAcc = 0.f;
+		isLimit = true;
+	}
+
+
+	if ((m_MainTimer->TotalTime() - timeElapsed) >= 1.0f)
+	{
+		int fps = frameCnt;
+		int limitedfps = FrameCntLimit;
+		float mspf = 1000.0f / fps;
+
+		std::wstring limitfpsStr = std::to_wstring(limitedfps);
+		std::wstring fpsStr = std::to_wstring(fps);
+		std::wstring mspfStr = std::to_wstring(mspf);
+
+		std::wstring dbgText = 
+			L" Limited Fps: " + limitfpsStr +
+			L"  Fps: " + fpsStr +
+			L"  mspf: " + mspfStr;
+		static_cast<CDebugObject*>(m_DebugObjects[L"FPS"].get())->SetDbgMessage(dbgText.c_str());
+		// Reset for next average.
+		frameCnt = 0;
+		FrameCntLimit = 0;
+		timeElapsed += 1.0f;
+	}
+
+	return isLimit;
+
+}
+
+void Engine::Architecture::AppCore_Game::SetFramelateLimit(const float& _Limit)
+{
+	m_CallPerSec = 1.f / _Limit;
 }

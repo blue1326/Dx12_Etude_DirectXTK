@@ -229,6 +229,7 @@ int Derived_MainWnd::Run()
 {
 	MSG msg = { 0 };
 	m_AppInst =  Engine::Architecture::AppCore_Game::Create(m_hWnd, m_ClientWidth, m_ClientHeight);
+	m_AppInst->SetFramelateLimit(60.f);
 	while (msg.message != WM_QUIT)
 	{
 		//peeking Windows Message
@@ -244,10 +245,12 @@ int Derived_MainWnd::Run()
 
 			if (!isPaused)
 			{
-				m_AppInst->Update();
-				m_AppInst->Render();
-				m_AppInst->LateUpdate();
-
+				if (m_AppInst->CalculateFrameStats())
+				{
+					m_AppInst->Update();
+					m_AppInst->Render();
+					m_AppInst->LateUpdate();
+				}
 			}
 			else
 			{

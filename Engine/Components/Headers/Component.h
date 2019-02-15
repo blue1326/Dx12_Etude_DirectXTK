@@ -10,17 +10,18 @@ namespace Engine
 		{
 		public:
 			explicit CComponent();
-			explicit CComponent(const CComponent& rhs) = delete;
+			explicit CComponent(const CComponent& rhs)=delete;
 			virtual ~CComponent();
 		public:
 			_declspec(dllexport) virtual HRESULT Init_Component()=0;
 			_declspec(dllexport) virtual HRESULT Prepare_Component() = 0;
 
 			_declspec(dllexport) virtual void Update_Component(const shared_ptr<CTimer> _timer) = 0;
+			_declspec(dllexport) virtual void LateUpdate_Component(const shared_ptr<CTimer> _timer) = 0;
+
 
 		public:
 			_declspec(dllexport) virtual shared_ptr<CComponent>Clone() = 0;
-		private:
 
 		};
 

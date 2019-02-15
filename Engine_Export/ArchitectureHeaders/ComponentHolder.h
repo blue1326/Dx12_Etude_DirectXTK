@@ -18,14 +18,14 @@ namespace Engine
 		public:
 			bool InitComponents();
 			HRESULT Reserve_ComponentHolder(const unsigned int& iSize);
-			void AddOriginComponent(const std::string _ComponentName, std::shared_ptr<CComponent> _ComponentOrigin);
-			std::shared_ptr<CComponent> Clone_Component(const std::string _ComponentName);
-			std::shared_ptr<CComponent> Get_Component(const std::string _ComponentName);
-			typedef std::map<const std::string, std::shared_ptr<CComponent>> MAPCOMPONENT;
+			void AddOriginComponent(const wchar_t* _ComponentName, std::shared_ptr<CComponent> _ComponentOrigin);
+			std::shared_ptr<CComponent> Clone_Component(const wchar_t* _ComponentName);
+			std::shared_ptr<CComponent> Get_Component(const wchar_t* _ComponentName);
+			typedef std::map<const wchar_t*, std::shared_ptr<CComponent>> MAPCOMPONENT;
 		public:
 			void Destroy();
 		private:
-			std::shared_ptr<CComponent> Find_Component(const std::string _ComponentName);
+			std::shared_ptr<CComponent> Find_Component(const wchar_t* _ComponentName);
 		private:
 			MAPCOMPONENT m_OriginComponents;
 			

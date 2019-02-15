@@ -26,7 +26,7 @@ HRESULT CComponentHolder::Reserve_ComponentHolder(const unsigned int& iSize)
 	return S_OK;
 }
 
-void CComponentHolder::AddOriginComponent(const std::string _ComponentName, std::shared_ptr<CComponent> _ComponentOrigin)
+void CComponentHolder::AddOriginComponent(const wchar_t* _ComponentName, std::shared_ptr<CComponent> _ComponentOrigin)
 {	
 	if (Find_Component(_ComponentName) == nullptr)
 		m_OriginComponents.insert(MAPCOMPONENT::value_type(_ComponentName, move(_ComponentOrigin)));
@@ -34,7 +34,7 @@ void CComponentHolder::AddOriginComponent(const std::string _ComponentName, std:
 		return;
 }
 
-std::shared_ptr<CComponent> CComponentHolder::Clone_Component(const std::string _ComponentName)
+std::shared_ptr<CComponent> CComponentHolder::Clone_Component(const wchar_t* _ComponentName)
 {
 	std::shared_ptr<CComponent> component = nullptr;
 	component = Find_Component(_ComponentName);
@@ -44,7 +44,7 @@ std::shared_ptr<CComponent> CComponentHolder::Clone_Component(const std::string 
 		return nullptr;
 }
 
-std::shared_ptr<CComponent> CComponentHolder::Get_Component(const std::string _ComponentName)
+std::shared_ptr<CComponent> CComponentHolder::Get_Component(const wchar_t* _ComponentName)
 {
 	std::shared_ptr<CComponent> component = nullptr;
 	component = Find_Component(_ComponentName);
@@ -54,7 +54,7 @@ std::shared_ptr<CComponent> CComponentHolder::Get_Component(const std::string _C
 		return nullptr;
 }
 
-std::shared_ptr<CComponent> CComponentHolder::Find_Component(const std::string _ComponentName)
+std::shared_ptr<CComponent> CComponentHolder::Find_Component(const wchar_t* _ComponentName)
 {
 	MAPCOMPONENT::iterator iter = m_OriginComponents.find(_ComponentName);
 	if (iter == m_OriginComponents.end())

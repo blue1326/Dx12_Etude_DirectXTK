@@ -95,6 +95,7 @@
     <ClInclude Include="..\..\..\Engine_Export\Export_System.h" />
     <ClInclude Include="..\Headers\DxDevice.h" />
     <ClInclude Include="..\Headers\Exception.h" />
+    <ClInclude Include="..\Headers\Functor.h" />
     <ClInclude Include="..\Headers\Interface.h" />
     <ClInclude Include="..\Headers\Timer.h" />
     <ClInclude Include="stdafx.h" />

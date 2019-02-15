@@ -5,6 +5,8 @@
 #include "Timer.h"
 //#include "Renderer.h"
 #include "Component.h"
+#include "Object.h"
+#include "Phase.h"
 using namespace Engine::System;
 using namespace Engine::Components;
 namespace Engine
@@ -50,8 +52,10 @@ namespace Engine
 			void CreateWindowSizeDependentResources();
 
 		private:
-			void CreateArchitecture();
+			void LoadPreLoadComponents();
 
+		public:
+			_declspec(dllexport) bool CalculateFrameStats();
 
 		private:
 			shared_ptr<DxDevice> m_Device;
@@ -63,11 +67,18 @@ namespace Engine
 
 			shared_ptr<CComponent> m_Renderer;
 
+			typedef map<const wchar_t*, shared_ptr<CObject>> MAPOBJCTS;
+			MAPOBJCTS m_DebugObjects;
+			typedef map<const wchar_t*, shared_ptr<CPhase>> MAPPHASE;
+			MAPPHASE m_Phase;
 
 			std::unique_ptr<DirectX::GraphicsMemory> m_graphicsMemory;
 			
-
-
+		private://for FrameLimits
+			float m_fTimeAcc;
+			float m_CallPerSec;
+		public:
+			_declspec(dllexport) void SetFramelateLimit(const float& _Limit);
 
 		private://matrix
 			DirectX::SimpleMath::Matrix                                             m_world;

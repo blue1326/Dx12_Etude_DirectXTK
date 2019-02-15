@@ -25,14 +25,20 @@
     <Filter Include="00.Components\01.Transform">
       <UniqueIdentifier>{5a297475-ecbf-4e6a-98cc-e405c8bf2a2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Components\NewFilter2">
-      <UniqueIdentifier>{3c654938-58de-422c-92ed-4a1b65f5d1af}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00.Components\02.Camera">
       <UniqueIdentifier>{4d434f71-57ac-470b-b95f-ea3b7be65e5a}</UniqueIdentifier>
     </Filter>
     <Filter Include="98.Exports">
       <UniqueIdentifier>{3748132a-911b-4224-a8c6-1d6029539f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Components\03.Texture">
+      <UniqueIdentifier>{3c654938-58de-422c-92ed-4a1b65f5d1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Components\04.Font">
+      <UniqueIdentifier>{13bab004-0186-44fb-94d6-0e8c9ccdf96a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97.Object">
+      <UniqueIdentifier>{53fdc28c-cffc-42f8-9fe2-285e9a7daabd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +63,18 @@
     <ClInclude Include="..\..\..\Engine_Export\Export_Components.h">
       <Filter>98.Exports</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Texture.h">
+      <Filter>00.Components\03.Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Font.h">
+      <Filter>00.Components\04.Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Component_OnDevice.h">
+      <Filter>00.Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Object.h">
+      <Filter>97.Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -76,6 +94,18 @@
     </ClCompile>
     <ClCompile Include="..\Source\Transform.cpp">
       <Filter>00.Components\01.Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Texture.cpp">
+      <Filter>00.Components\03.Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Font.cpp">
+      <Filter>00.Components\04.Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Component_OnDevice.cpp">
+      <Filter>00.Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Object.cpp">
+      <Filter>97.Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

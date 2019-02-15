@@ -34,6 +34,12 @@
     <Filter Include="97.Template">
       <UniqueIdentifier>{c89dc5ca-403c-4729-a0e1-48190f5d7914}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Object">
+      <UniqueIdentifier>{2e234337-f481-4f0b-86db-031532e371c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Object\00.Object_Derived">
+      <UniqueIdentifier>{73e0e79f-048d-4bdc-8177-c1dfe3b50003}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -66,6 +72,27 @@
     <ClInclude Include="..\Headers\Templates.h">
       <Filter>97.Template</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\DebugObject.h">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\GameObject.h">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\UIObject.h">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\ResourceLoader.h">
+      <Filter>00.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Object_LoadString.h">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Object_Logo.h">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Object_LoadStatString.h">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -91,6 +118,27 @@
     </ClCompile>
     <ClCompile Include="..\Source\Phase.cpp">
       <Filter>01.Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DebugObject.cpp">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\GameObject.cpp">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\UIObject.cpp">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ResourceLoader.cpp">
+      <Filter>00.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Object_LoadString.cpp">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Object_Logo.cpp">
+      <Filter>02.Object\00.Object_Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Object_LoadStatString.cpp">
+      <Filter>02.Object\00.Object_Derived</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

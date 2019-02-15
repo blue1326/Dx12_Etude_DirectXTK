@@ -104,10 +104,17 @@
     <ClInclude Include="..\Headers\AppCore.h" />
     <ClInclude Include="..\Headers\ComponentHolder.h" />
     <ClInclude Include="..\Headers\Core_Game.h" />
+    <ClInclude Include="..\Headers\DebugObject.h" />
+    <ClInclude Include="..\Headers\GameObject.h" />
+    <ClInclude Include="..\Headers\Object_LoadStatString.h" />
+    <ClInclude Include="..\Headers\Object_LoadString.h" />
+    <ClInclude Include="..\Headers\Object_Logo.h" />
     <ClInclude Include="..\Headers\Phase.h" />
     <ClInclude Include="..\Headers\Phase_Load.h" />
     <ClInclude Include="..\Headers\Phase_Stage.h" />
+    <ClInclude Include="..\Headers\ResourceLoader.h" />
     <ClInclude Include="..\Headers\Templates.h" />
+    <ClInclude Include="..\Headers\UIObject.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -115,9 +122,16 @@
     <ClCompile Include="..\Source\AppCore.cpp" />
     <ClCompile Include="..\Source\ComponentHolder.cpp" />
     <ClCompile Include="..\Source\Core_Game.cpp" />
+    <ClCompile Include="..\Source\DebugObject.cpp" />
+    <ClCompile Include="..\Source\GameObject.cpp" />
+    <ClCompile Include="..\Source\Object_LoadStatString.cpp" />
+    <ClCompile Include="..\Source\Object_LoadString.cpp" />
+    <ClCompile Include="..\Source\Object_Logo.cpp" />
     <ClCompile Include="..\Source\Phase.cpp" />
     <ClCompile Include="..\Source\Phase_Load.cpp" />
     <ClCompile Include="..\Source\Phase_Stage.cpp" />
+    <ClCompile Include="..\Source\ResourceLoader.cpp" />
+    <ClCompile Include="..\Source\UIObject.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

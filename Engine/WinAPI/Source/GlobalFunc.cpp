@@ -2,5 +2,3 @@
 #include "GlobalFunc.h"
 #include "GlobalVariables.h"
 
-
-

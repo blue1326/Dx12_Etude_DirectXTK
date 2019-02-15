@@ -1,17 +1,20 @@
 #ifndef Engine_Renderer_h__
 #define Engine_Renderer_h__
 #include "Component.h"
+#include "Component_OnDevice.h"
 #include "DxDevice.h"
+#include "Object.h"
 using namespace Engine::System;
 namespace Engine
 {
 	namespace Components
 	{
-		class CRenderer : public CComponent
+		class CRenderer : public CComponent_Device
 		{
 		public:
 			enum RENDER {
-				RENDER_PRIORITY, RENDER_NONEALPHA, RENDER_ALPHA, RENDER_UI, RENDER_DEBUG,RENDER_END
+				RENDER_DEBUG,
+				RENDER_PRIORITY, RENDER_NONEALPHA, RENDER_ALPHA, RENDER_UI, RENDER_END
 			};
 		public:
 			explicit CRenderer(const shared_ptr<DxDevice> _device);
@@ -22,16 +25,26 @@ namespace Engine
 			virtual HRESULT Prepare_Component()override;
 
 			virtual void Update_Component(const shared_ptr<CTimer> _timer)override;
-			_declspec(dllexport) void Render();
+			virtual void LateUpdate_Component(const shared_ptr<CTimer> _timer)override;
+			_declspec(dllexport) void Render(ID3D12GraphicsCommandList* cmdlist);
+
+
+		public:
+			HRESULT Add_RenderList(RENDER eType, shared_ptr<CObject> object);
+		private:
+			void RenderNoneAlpha(ID3D12GraphicsCommandList* cmdlist);
+			void RenderUI(ID3D12GraphicsCommandList* cmdlist);
+			void Clear_RenderList();
 		public:
 			virtual shared_ptr<CComponent>Clone()override;
 			_declspec(dllexport) static shared_ptr<CComponent>Create(const shared_ptr<DxDevice> _device);
-		private:
-			const shared_ptr<DxDevice> m_DxDevice;
+		/*private:
+			const shared_ptr<DxDevice> m_DxDevice;*/
 
 		private:
-			list<shared_ptr<void>>				m_RenderList[RENDER_END];
-			typedef list<shared_ptr<void>>		RENDERLIST;
+			typedef list<shared_ptr<CObject>>		RENDERLIST;
+			RENDERLIST				m_RenderList[RENDER_END];
+			
 		};
 	}
 }
