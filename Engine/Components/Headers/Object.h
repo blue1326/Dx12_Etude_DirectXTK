@@ -19,8 +19,10 @@ namespace Engine
 			_declspec(dllexport)virtual void Update_Object(const shared_ptr<CTimer> _timer) = 0;
 			_declspec(dllexport)virtual void LateUpdate_Object(const shared_ptr<CTimer> _timer) = 0;
 			_declspec(dllexport)virtual void Render_Object(ID3D12GraphicsCommandList* cmdlist) =0 ;
-
 			
+		protected:
+			//_declspec(dllexport) virtual shared_ptr<CObject> Share() = 0;
+
 		protected:
 			const shared_ptr<DxDevice> m_DxDevice;
 

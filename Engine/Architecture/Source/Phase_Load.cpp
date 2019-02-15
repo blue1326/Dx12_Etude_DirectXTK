@@ -6,6 +6,7 @@
 #include "Renderer.h"
 //mutex mtx;
 #include "Object_LoadStatString.h"
+#include "Object_LoadString.h"
 Engine::Architecture::CPhase_Load::CPhase_Load(const shared_ptr<DxDevice> _device)
 	:CPhase::CPhase(_device)
 {
@@ -22,6 +23,9 @@ HRESULT Engine::Architecture::CPhase_Load::Prepare_Phase()
 
 	shared_ptr<CObject> obj = CObject_LoadStatString::Create(m_DxDevice);
 	AddObject(L"LoadStatText", obj);
+	obj.reset();
+	obj = CObject_LoadString::Create(m_DxDevice);
+	AddObject(L"LoadText", obj);
 	InitObjects();
 	m_Loader = CResourceLoader::Create();
 

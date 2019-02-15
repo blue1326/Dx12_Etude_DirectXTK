@@ -19,6 +19,7 @@ namespace Engine
 			_declspec(dllexport) virtual void Update_Component(const shared_ptr<CTimer> _timer) = 0;
 			_declspec(dllexport) virtual void LateUpdate_Component(const shared_ptr<CTimer> _timer) = 0;
 
+
 		public:
 			_declspec(dllexport) virtual shared_ptr<CComponent>Clone() = 0;
 

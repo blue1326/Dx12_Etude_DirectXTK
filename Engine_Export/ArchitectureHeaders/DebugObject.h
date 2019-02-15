@@ -28,7 +28,8 @@ namespace Engine
 		private:
 			typedef map<const wchar_t*,shared_ptr<CComponent>> MAPCOMPONENTS;
 			MAPCOMPONENTS m_Components;
-
+		protected:
+			_declspec(dllexport) virtual shared_ptr<CObject> Share();
 		private:
 			wchar_t DbgMessage[255];
 		};

@@ -9,6 +9,7 @@ Engine::Architecture::CUIObject::CUIObject(const shared_ptr<DxDevice> _device)
 
 Engine::Architecture::CUIObject::~CUIObject()
 {
+	
 	Free();
 }
 

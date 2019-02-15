@@ -30,7 +30,7 @@ namespace Engine
 
 
 		public:
-			HRESULT Add_RenderList(RENDER eType, shared_ptr<CObject> object);
+			_declspec(dllexport) HRESULT Add_RenderList(RENDER eType, shared_ptr<CObject> object);
 		private:
 			void RenderNoneAlpha(ID3D12GraphicsCommandList* cmdlist);
 			void RenderUI(ID3D12GraphicsCommandList* cmdlist);

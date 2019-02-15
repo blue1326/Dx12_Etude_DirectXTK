@@ -2,6 +2,8 @@
 #include "Object_LoadStatString.h"
 #include "ComponentHolder.h"
 #include "Font.h"
+#include "Renderer.h"
+
 using namespace DirectX;
 Engine::Architecture::CObject_LoadStatString::CObject_LoadStatString(const shared_ptr<DxDevice> _device)
 	:CUIObject(_device)
@@ -18,7 +20,9 @@ Engine::Architecture::CObject_LoadStatString::~CObject_LoadStatString()
 HRESULT Engine::Architecture::CObject_LoadStatString::Init_Object()
 {
 	m_Components[L"Font"] = CComponentHolder::GetInstance()->Clone_Component(L"BasicFont");
-	//m_Components[L"Renderer"];
+	if (m_Components[L"Font"] == nullptr)return E_FAIL;
+	m_Components[L"Renderer"] = CComponentHolder::GetInstance()->Clone_Component(L"Renderer");
+	if (m_Components[L"Renderer"] == nullptr)return E_FAIL;
 	/*if (FAILED(m_Components[L"Font"]->Prepare_Component()))
 		return E_FAIL;*/
 
@@ -43,8 +47,8 @@ void Engine::Architecture::CObject_LoadStatString::Update_Object(const shared_pt
 		m_LoadStatText += *j.get();
 		m_LoadStatText += L"  Loaded \n";
 	}
-
 	
+	static_cast<CRenderer*>(m_Components[L"Renderer"].get())->Add_RenderList(CRenderer::RENDER_UI, shared_from_this());
 	CUIObject::Update_Object(_timer);
 }
 

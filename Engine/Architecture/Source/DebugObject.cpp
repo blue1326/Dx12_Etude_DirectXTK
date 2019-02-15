@@ -57,3 +57,8 @@ std::shared_ptr<Engine::CObject> Engine::Architecture::CDebugObject::Create(cons
 	shared_ptr<CObject> inst = shared_ptr<CObject>(new CDebugObject(_device));
 	return move(inst);
 }
+
+std::shared_ptr<Engine::CObject> Engine::Architecture::CDebugObject::Share()
+{
+	return nullptr;
+}

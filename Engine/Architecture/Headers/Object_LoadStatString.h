@@ -1,6 +1,7 @@
 #ifndef Engine_Object_LoadStatString_h__
 #define Engine_Object_LoadStatString_h__
 #include "UIObject.h"
+
 namespace Engine
 {
 	namespace Architecture

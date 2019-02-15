@@ -150,7 +150,7 @@ void Engine::Architecture::AppCore_Game::Render()
 	}
 	dynamic_cast<CRenderer*>(m_Renderer.get())->Render(cmdlist);
 	
-	m_Phase[L"Load"]->Render_Phase(cmdlist);
+	//m_Phase[L"Load"]->Render_Phase(cmdlist);
 
 
 	/*CFont* font = dynamic_cast<CFont*>(CComponentHolder::GetInstance()->Get_Component("BasicFont").get());
@@ -233,7 +233,9 @@ void Engine::Architecture::AppCore_Game::LoadPreLoadComponents()
 {
 	shared_ptr<CComponent> inst = CRenderer::Create(m_Device);
 	m_Renderer = inst;
+	inst->Init_Component();
 	CComponentHolder::GetInstance()->AddOriginComponent(L"Renderer", inst);
+	inst.reset();
 	//클라이언트 기준 상대경로
 	inst = CFont::Create(m_Device, L"../../Font/Basic10.spritefont");
 	inst->Init_Component();
