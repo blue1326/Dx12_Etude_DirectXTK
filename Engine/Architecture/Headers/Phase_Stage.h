@@ -18,6 +18,12 @@ namespace Engine
 			explicit CPhase_Stage(const shared_ptr<DxDevice> _device);
 			virtual ~CPhase_Stage();
 		public:
+			enum LAYER
+			{
+				LAYER_PLAYER,
+				LAYER_END
+			};
+		public:
 			virtual HRESULT Prepare_Phase();
 			virtual void Update_Phase(const shared_ptr<CTimer> _timer);
 			virtual void LateUpdate_Phase(const shared_ptr<CTimer> _timer);

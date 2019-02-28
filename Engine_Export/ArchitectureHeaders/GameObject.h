@@ -24,9 +24,11 @@ namespace Engine
 		protected:
 			HRESULT Prepare_Object();
 
+		public:
+			typedef map<const wchar_t*, shared_ptr<CComponent>> MAPCOMPONENT;
 		protected:
 			HRESULT AddComponent(const wchar_t* _tag, shared_ptr<CComponent> _component);
-			typedef map<const wchar_t*, shared_ptr<CComponent>> MAPCOMPONENT;
+			
 			MAPCOMPONENT m_Components;
 
 			HRESULT CheckComponentNullptr();
