@@ -19,8 +19,24 @@ namespace Engine
 			virtual void LateUpdate_Object(const shared_ptr<CTimer> _timer)override;
 			virtual void Render_Object(ID3D12GraphicsCommandList* cmdlist)override;
 
-			void PushText(const wchar_t* _text);
-			const wchar_t* GetLastText();
+			void SetFlag(const bool _flag);
+			const bool GetFlag() { return isLoadCompleate; }
+			void SetLoadingPercentage(const float _percentage);
+			const bool GetPhaseFlag() { return isPhaseChage; }
+
+		private:
+			wchar_t m_LoadText[255];
+			float m_TimeAcc;
+			int m_iRunningCnt;
+
+			bool isLoadCompleate;
+			bool isStateChanged;
+			bool isPhaseChage;
+			float m_fPercentage;
+		private:
+			
+			void ChangeLoadString(const shared_ptr<CTimer> _timer);
+			void ChangeLoadString();
 
 		
 		public:

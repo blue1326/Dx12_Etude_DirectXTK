@@ -22,7 +22,8 @@ namespace Engine
 
 
 		public:
-			void SetDbgMessage(const wchar_t* _msg);
+			void SetFPSDbgMessage(const wchar_t* _msg);
+			void SetMouseDbgMessage(const wchar_t* _msg);
 		public:
 			_declspec(dllexport) static shared_ptr<CObject> Create(const shared_ptr<DxDevice> _device);
 		private:
@@ -31,7 +32,8 @@ namespace Engine
 		protected:
 			_declspec(dllexport) virtual shared_ptr<CObject> Share();
 		private:
-			wchar_t DbgMessage[255];
+			wchar_t FPSDbgMessage[255];
+			wchar_t MouseDbgMessage[255];
 		};
 
 		

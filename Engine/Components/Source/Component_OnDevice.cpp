@@ -9,7 +9,7 @@ Engine::Components::CComponent_Device::CComponent_Device(const shared_ptr<DxDevi
 
 Engine::Components::CComponent_Device::~CComponent_Device()
 {
-
+	m_DxDevice.reset();
 }
 
 Engine::Components::CComponent_Device::CComponent_Device(const CComponent_Device& rhs)

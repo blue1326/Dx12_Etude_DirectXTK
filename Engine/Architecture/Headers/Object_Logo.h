@@ -1,12 +1,14 @@
 #ifndef Object_Logo_h__
 #define Object_Logo_h__
-#include "Object.h"
+//#include "Object.h"
+#include "UIObject.h"
 namespace Engine
 {
 	namespace Architecture
 	{
-		class CObject_Logo : public CObject
+		class CObject_Logo : public CUIObject
 		{
+		public:
 			explicit CObject_Logo(const shared_ptr<DxDevice> _device);
 			explicit CObject_Logo(const CObject& rhs) = delete;
 			virtual ~CObject_Logo();
@@ -21,7 +23,7 @@ namespace Engine
 
 
 		public:
-			static shared_ptr<CObject> Create();
+			static shared_ptr<CObject> Create(const shared_ptr<DxDevice> _device);
 		};
 	}
 }

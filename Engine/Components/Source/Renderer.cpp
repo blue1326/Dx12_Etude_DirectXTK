@@ -9,7 +9,7 @@ Engine::Components::CRenderer::CRenderer(const shared_ptr<DxDevice> _device)
 
 Engine::Components::CRenderer::~CRenderer()
 {
-
+	Clear_RenderList();
 }
 
 HRESULT Engine::Components::CRenderer::Init_Component()

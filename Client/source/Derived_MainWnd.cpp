@@ -10,24 +10,14 @@ Derived_MainWnd::Derived_MainWnd(HINSTANCE hinstance)
 
 Derived_MainWnd::~Derived_MainWnd()
 {
-
-}
+	AdditionalMsgProc = nullptr;
+ }
 
 LRESULT Derived_MainWnd::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
 	case WM_CREATE:
-		//if (!g_hNewAudio)
-		//{
-		//	// Ask for notification of new audio devices
-		//	DEV_BROADCAST_DEVICEINTERFACE filter = {};
-		//	filter.dbcc_size = sizeof(filter);
-		//	filter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
-		//	filter.dbcc_classguid = KSCATEGORY_AUDIO;
-
-		//	g_hNewAudio = RegisterDeviceNotification(hWnd, &filter, DEVICE_NOTIFY_WINDOW_HANDLE);
-		//}
 		break;
 
 	case WM_CLOSE:
@@ -40,56 +30,11 @@ LRESULT Derived_MainWnd::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 		break;
 
 	case WM_DEVICECHANGE:
-		/*switch (wParam)
-		{
-		case DBT_DEVICEARRIVAL:
-		{
-			auto pDev = reinterpret_cast<PDEV_BROADCAST_HDR>(lParam);
-			if (pDev)
-			{
-				if (pDev->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE)
-				{
-					auto pInter = reinterpret_cast<const PDEV_BROADCAST_DEVICEINTERFACE>(pDev);
-					if (pInter->dbcc_classguid == KSCATEGORY_AUDIO)
-					{
-						if (g_game)
-							g_game->NewAudioDevice();
-					}
-				}
-			}
-		}
-		break;
 
-		case DBT_DEVICEREMOVECOMPLETE:
-		{
-			auto pDev = reinterpret_cast<PDEV_BROADCAST_HDR>(lParam);
-			if (pDev)
-			{
-				if (pDev->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE)
-				{
-					auto pInter = reinterpret_cast<const PDEV_BROADCAST_DEVICEINTERFACE>(pDev);
-					if (pInter->dbcc_classguid == KSCATEGORY_AUDIO)
-					{
-						if (g_game)
-							g_game->NewAudioDevice();
-					}
-				}
-			}
-		}
-		break;
-		}*/
 		return 0;
 
 	case WM_PAINT:
-		/*	if (isSizemove && game)
-			{
-				game->Tick();
-			}
-			else
-			{
-				hdc = BeginPaint(hWnd, &ps);
-				EndPaint(hWnd, &ps);
-			}*/
+
 		break;
 
 	case WM_MOVE:
@@ -180,9 +125,9 @@ LRESULT Derived_MainWnd::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 		}
 		break;
 
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
+		/*case WM_DESTROY:
+			PostQuitMessage(0);
+			break;*/
 
 	case WM_SYSKEYDOWN:
 		if (wParam == VK_RETURN && (lParam & 0x60000000) == 0x20000000)
@@ -209,6 +154,8 @@ LRESULT Derived_MainWnd::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 
 				SetWindowPos(hwnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 
+		
+
 				ShowWindow(hwnd, SW_SHOWMAXIMIZED);
 			}
 
@@ -221,7 +168,7 @@ LRESULT Derived_MainWnd::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 		// to any mnemonic or accelerator key. Ignore so we don't produce an error beep.
 		return MAKELRESULT(0, MNC_CLOSE);
 	}
-
+	CMainWinSetUp::MsgProc(hwnd, msg, wParam, lParam);
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
@@ -230,6 +177,7 @@ int Derived_MainWnd::Run()
 	MSG msg = { 0 };
 	m_AppInst =  Engine::Architecture::AppCore_Game::Create(m_hWnd, m_ClientWidth, m_ClientHeight);
 	m_AppInst->SetFramelateLimit(60.f);
+	CMainWinSetUp::SetAdditionalMsgProc(Engine::Architecture::AppCore_Game::AdditionalMsgProc);
 	while (msg.message != WM_QUIT)
 	{
 		//peeking Windows Message
@@ -250,6 +198,10 @@ int Derived_MainWnd::Run()
 					m_AppInst->Update();
 					m_AppInst->Render();
 					m_AppInst->LateUpdate();
+				}
+				else
+				{
+					int i = 0;
 				}
 			}
 			else

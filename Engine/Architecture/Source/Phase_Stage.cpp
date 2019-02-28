@@ -27,7 +27,12 @@ void Engine::Architecture::CPhase_Stage::LateUpdate_Phase(const shared_ptr<CTime
 	
 }
 
-void Engine::Architecture::CPhase_Stage::Render_Phase()
+void Engine::Architecture::CPhase_Stage::Render_Phase(ID3D12GraphicsCommandList* cmdlist)
 {
 
+}
+
+std::shared_ptr<Engine::Architecture::CPhase> Engine::Architecture::CPhase_Stage::Create(const shared_ptr<DxDevice> _device)
+{
+	return shared_ptr<CPhase>(new CPhase_Stage(_device));
 }

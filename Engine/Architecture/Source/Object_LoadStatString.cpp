@@ -20,11 +20,13 @@ Engine::Architecture::CObject_LoadStatString::~CObject_LoadStatString()
 HRESULT Engine::Architecture::CObject_LoadStatString::Init_Object()
 {
 	m_Components[L"Font"] = CComponentHolder::GetInstance()->Clone_Component(L"BasicFont");
-	if (m_Components[L"Font"] == nullptr)return E_FAIL;
+	//if (m_Components[L"Font"] == nullptr)return E_FAIL;
 	m_Components[L"Renderer"] = CComponentHolder::GetInstance()->Clone_Component(L"Renderer");
-	if (m_Components[L"Renderer"] == nullptr)return E_FAIL;
+	//if (m_Components[L"Renderer"] == nullptr)return E_FAIL;
 	/*if (FAILED(m_Components[L"Font"]->Prepare_Component()))
 		return E_FAIL;*/
+	if (FAILED(CheckComponentNullptr()))
+		return E_FAIL;
 
 	if (FAILED(Prepare_Object()))
 		return E_FAIL;

@@ -27,6 +27,9 @@ namespace Engine
 			HRESULT AddComponent(const wchar_t* _tag, shared_ptr<CComponent> _component);
 			typedef map<const wchar_t*, shared_ptr<CComponent>> MAPCOMPONENT;
 			MAPCOMPONENT m_Components;
+
+			HRESULT CheckComponentNullptr();
+
 			void Free();
 			
 

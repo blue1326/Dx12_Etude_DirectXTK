@@ -4,15 +4,22 @@
 
 #include "Export_Components.h"
 #include "Font.h"
+#include "Sprite.h"
+
 #include "DebugObject.h"
-#include "Texture.h"
+
 #include "Phase_Load.h"
+#include "Phase_Stage.h"
 //#include "Renderer.h"
 //using namespace Engine::System;
-//using namespace Engine::Components;
+using namespace Engine::Components;
 using namespace DirectX;
 Engine::Architecture::AppCore_Game::AppCore_Game() noexcept(false)
 	:m_fTimeAcc(0.f)
+	,frameCnt(0)
+	,frameCntLimit(0)
+	,timeElapsed(0)
+	,m_ActivePhase(nullptr)
 {
 	m_Device = DxDevice::CreateDevice();
 	m_Device->RegisterDeviceNotify(this);
@@ -20,6 +27,8 @@ Engine::Architecture::AppCore_Game::AppCore_Game() noexcept(false)
 
 Engine::Architecture::AppCore_Game::~AppCore_Game()
 {
+
+	//static_cast<CControl*>(m_Control.get())->Reset();
 	CComponentHolder::GetInstance()->Destroy();
 	if (m_Device)
 	{
@@ -37,11 +46,19 @@ shared_ptr<Engine::Architecture::AppCore_Game> Engine::Architecture::AppCore_Gam
 void Engine::Architecture::AppCore_Game::Initialize(HWND window, int width, int height)
 {
 	m_MainTimer = CTimer::CreateTimer();
-	//m_Gamepad = make_shared<DirectX::GamePad>();
-	m_Keyboard = make_shared<DirectX::Keyboard>();
-	m_Mouse = make_shared<DirectX::Mouse>();
+	m_MainTimer->Reset();
+
+
+	//m_Gamepad = make_unique<DirectX::GamePad>();
+	
+	m_Keyboard = make_unique<DirectX::Keyboard>();
+	m_Mouse = make_unique<DirectX::Mouse>();
+	
 
 	m_Mouse->SetWindow(window);
+	
+
+	
 
 	m_Device->SetWindow(window, width, height);
 
@@ -52,12 +69,55 @@ void Engine::Architecture::AppCore_Game::Initialize(HWND window, int width, int 
 
 	LoadPreLoadComponents();
 
-	m_DebugObjects[L"FPS"] = CDebugObject::Create(m_Device);
-	m_DebugObjects[L"FPS"]->Init_Object();
-	static_cast<CDebugObject*>(m_DebugObjects[L"FPS"].get())->SetDbgMessage(L"FPS");
+	m_DebugObjects[L"Main"] = CDebugObject::Create(m_Device);
+	m_DebugObjects[L"Main"]->Init_Object();
+	//static_cast<CDebugObject*>(m_DebugObjects[L"Main"].get())->SetFPSDbgMessage(L"FPS");
 	m_Phase[L"Load"] = CPhase_Load::Create(m_Device);
+	m_Phase[L"Load"]->isLive = true;
 	m_Phase[L"Load"]->Prepare_Phase();
+
+	m_Phase[L"Stage"] = CPhase_Stage::Create(m_Device);
+	m_Phase[L"Load"]->SetNextPhase(m_Phase[L"Stage"]);
 	
+}
+
+void Engine::Architecture::AppCore_Game::ResizeWindow(HWND window, int width, int height)
+{
+	m_Device->SetWindow(window, width, height);
+}
+
+LRESULT Engine::Architecture::AppCore_Game::AdditionalMsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	switch (msg)
+	{
+	case WM_ACTIVATEAPP:
+		Keyboard::ProcessMessage(msg, wParam, lParam);
+		Mouse::ProcessMessage(msg, wParam, lParam);
+		break;
+
+	case WM_KEYDOWN:
+	case WM_SYSKEYDOWN:
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		Keyboard::ProcessMessage(msg, wParam, lParam);
+		break;
+	case WM_INPUT:
+	case WM_MOUSEMOVE:
+	case WM_LBUTTONDOWN:
+	case WM_LBUTTONUP:
+	case WM_RBUTTONDOWN:
+	case WM_RBUTTONUP:
+	case WM_MBUTTONDOWN:
+	case WM_MBUTTONUP:
+	case WM_MOUSEWHEEL:
+	case WM_XBUTTONDOWN:
+	case WM_XBUTTONUP:
+	case WM_MOUSEHOVER:
+		Mouse::ProcessMessage(msg, wParam, lParam);
+		break;
+	}
+
+	return 0;
 }
 
 void Engine::Architecture::AppCore_Game::Tick()
@@ -94,9 +154,7 @@ void Engine::Architecture::AppCore_Game::OnSuspending()
 void Engine::Architecture::AppCore_Game::OnResuming()
 {
 	m_MainTimer->Start();
-	//m_gamePadButtons.Reset();
-	//m_keyboardButtons.Reset();
-	//m_audEngine->Resume();
+
 }
 
 void Engine::Architecture::AppCore_Game::OnWindowMoved()
@@ -127,7 +185,52 @@ void Engine::Architecture::AppCore_Game::GetDefaultSize(int& width, int& height)
 void Engine::Architecture::AppCore_Game::Update()
 {
 	PIXBeginEvent(PIX_COLOR_DEFAULT, L"Update");
-	m_Phase[L"Load"]->Update_Phase(m_MainTimer);
+	//
+	auto control = static_cast<CControl*>(m_Control.get());
+	auto keystate = m_Keyboard->GetState();
+	
+
+	auto mousestate = m_Mouse->GetState();
+	
+	
+
+	
+	control->UpdateTracker(keystate);
+	
+
+	control->UpdateTracker(mousestate);
+	if (control->GetMouseTracker().leftButton == GamePad::ButtonStateTracker::HELD)
+	{
+		m_Mouse->SetMode(Mouse::MODE_RELATIVE);
+	}
+	else
+		m_Mouse->SetMode(Mouse::MODE_ABSOLUTE);
+		
+
+	wstring mousepos = L"MousePos X : "+ to_wstring(mousestate.x) + L" Y : " + to_wstring(mousestate.y);
+	
+	
+	//
+	static_cast<CDebugObject*>(m_DebugObjects[L"Main"].get())->SetMouseDbgMessage(mousepos.c_str());
+
+	//m_Phase[L"Load"]->Update_Phase(m_MainTimer);
+	if (m_ActivePhase == nullptr)
+	{
+		SetUp_ActivePhase();
+	}
+	else
+	{
+		if (m_ActivePhase->isLive)
+		{
+			m_ActivePhase->Update_Phase(m_MainTimer);
+		}
+		else
+		{
+			SetUp_ActivePhase();
+		}
+	}
+	
+	//
 	PIXEndEvent();
 }
 
@@ -144,12 +247,12 @@ void Engine::Architecture::AppCore_Game::Render()
 	auto cmdlist = m_Device->GetCommandList();
 	PIXBeginEvent(cmdlist, PIX_COLOR_DEFAULT, L"Render");
 	
+	
+	dynamic_cast<CRenderer*>(m_Renderer.get())->Render(cmdlist);
 	for (const auto &j : m_DebugObjects)
 	{
 		j.second->Render_Object(cmdlist);
 	}
-	dynamic_cast<CRenderer*>(m_Renderer.get())->Render(cmdlist);
-	
 	//m_Phase[L"Load"]->Render_Phase(cmdlist);
 
 
@@ -231,43 +334,51 @@ void Engine::Architecture::AppCore_Game::CreateWindowSizeDependentResources()
 
 void Engine::Architecture::AppCore_Game::LoadPreLoadComponents()
 {
+	auto holder = CComponentHolder::GetInstance();
 	shared_ptr<CComponent> inst = CRenderer::Create(m_Device);
 	m_Renderer = inst;
 	inst->Init_Component();
-	CComponentHolder::GetInstance()->AddOriginComponent(L"Renderer", inst);
-	inst.reset();
+	holder->AddOriginComponent(L"Renderer", inst);
+	
 	//클라이언트 기준 상대경로
+	inst.reset();
 	inst = CFont::Create(m_Device, L"../../Font/Basic10.spritefont");
 	inst->Init_Component();
-	CComponentHolder::GetInstance()->AddOriginComponent(L"BasicFont", inst);
+	holder->AddOriginComponent(L"BasicFont", inst);
 
 	inst.reset();
-	inst = CTexture::Create(m_Device, L"../../Textures/windowslogo.dds");
+	inst = CSprite::Create(m_Device, L"../../Textures/test.jpg");
 	inst->Init_Component();
+	holder->AddOriginComponent(L"Sprite_Logo", inst);
+
+	inst.reset();
+	inst = CControl::Create();
+	m_Control = inst;
+	inst->Init_Component();
+	holder->AddOriginComponent(L"Control", inst);
+
 }
 
 bool Engine::Architecture::AppCore_Game::CalculateFrameStats()
 {
 	bool isLimit = false;
-	static int frameCnt = 0;
-	static int FrameCntLimit = 0;
-	static float timeElapsed = 0.0f;
+
 	frameCnt++;
 	m_fTimeAcc += m_MainTimer->DeltaTime();
 	if (m_fTimeAcc > m_CallPerSec)
 	{
-		FrameCntLimit++;
+		frameCntLimit++;
 		m_fTimeAcc = 0.f;
 		isLimit = true;
 	}
 
-
+	
 	if ((m_MainTimer->TotalTime() - timeElapsed) >= 1.0f)
 	{
 		int fps = frameCnt;
-		int limitedfps = FrameCntLimit;
+		int limitedfps = frameCntLimit;
 		float mspf = 1000.0f / fps;
-
+	
 		std::wstring limitfpsStr = std::to_wstring(limitedfps);
 		std::wstring fpsStr = std::to_wstring(fps);
 		std::wstring mspfStr = std::to_wstring(mspf);
@@ -276,10 +387,10 @@ bool Engine::Architecture::AppCore_Game::CalculateFrameStats()
 			L" Limited Fps: " + limitfpsStr +
 			L"  Fps: " + fpsStr +
 			L"  mspf: " + mspfStr;
-		static_cast<CDebugObject*>(m_DebugObjects[L"FPS"].get())->SetDbgMessage(dbgText.c_str());
+		static_cast<CDebugObject*>(m_DebugObjects[L"Main"].get())->SetFPSDbgMessage(dbgText.c_str());
 		// Reset for next average.
 		frameCnt = 0;
-		FrameCntLimit = 0;
+		frameCntLimit = 0;
 		timeElapsed += 1.0f;
 	}
 
@@ -290,4 +401,22 @@ bool Engine::Architecture::AppCore_Game::CalculateFrameStats()
 void Engine::Architecture::AppCore_Game::SetFramelateLimit(const float& _Limit)
 {
 	m_CallPerSec = 1.f / _Limit;
+}
+
+bool Engine::Architecture::AppCore_Game::Check_OneLivePhase()
+{
+	///not yet
+	return true;
+}
+
+void Engine::Architecture::AppCore_Game::SetUp_ActivePhase()
+{
+	for (const auto &j : m_Phase)
+	{
+		if (j.second->isLive)
+		{
+			m_ActivePhase = j.second;
+			break;
+		}
+	}
 }

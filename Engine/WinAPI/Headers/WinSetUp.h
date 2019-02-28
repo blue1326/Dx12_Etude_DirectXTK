@@ -17,7 +17,9 @@ namespace WinSet
 		bool InitWindow();
 
 		virtual LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		LRESULT(*AdditionalMsgProc)(HWND , UINT , WPARAM , LPARAM );
 
+		void SetAdditionalMsgProc(LRESULT(*_msgproc)(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) );
 
 		virtual int Run();
 

@@ -44,6 +44,7 @@
 #include <unordered_map>
 #include <string>
 #include <queue>
+
 //#include <unordered_map>
 
 #include <pix.h>
@@ -76,6 +77,7 @@
 #include "SpriteFont.h" 
 //#include "VertexTypes.h"
 
+#pragma comment(lib,"RuntimeObject.lib")
 #pragma comment(lib,"../../../bin/System.lib")
 #pragma comment(lib,"../../../bin/Components.lib")
 

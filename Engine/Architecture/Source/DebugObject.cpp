@@ -5,7 +5,8 @@
 using namespace DirectX;
 Engine::Architecture::CDebugObject::CDebugObject(const shared_ptr<DxDevice> _device)
 	:CObject::CObject(_device)
-	,DbgMessage(L"")
+	,FPSDbgMessage(L"")
+	,MouseDbgMessage(L"")
 {
 
 }
@@ -41,15 +42,22 @@ void Engine::Architecture::CDebugObject::Render_Object(ID3D12GraphicsCommandList
 	ID3D12DescriptorHeap* heaps[] = { font->GetHeap()->Heap() };
 	cmdlist->SetDescriptorHeaps(_countof(heaps),heaps);
 	font->GetBatch()->Begin(cmdlist);
-	font->GetFont()->DrawString(font->GetBatch(), DbgMessage, XMFLOAT2(400, 10), DirectX::Colors::LightPink, DirectX::XMConvertToRadians(0));
+	font->GetFont()->DrawString(font->GetBatch(), FPSDbgMessage, XMFLOAT2(400, 10), DirectX::Colors::Red, DirectX::XMConvertToRadians(0));
+	font->GetFont()->DrawString(font->GetBatch(), MouseDbgMessage, XMFLOAT2(400, 20), DirectX::Colors::Red, DirectX::XMConvertToRadians(0));
+
 	font->GetBatch()->End();
 	PIXEndEvent(cmdlist);
 	//m_Components[L"Font"]->Render(cmdlist);
 }
 
-void Engine::Architecture::CDebugObject::SetDbgMessage(const wchar_t* _msg)
+void Engine::Architecture::CDebugObject::SetFPSDbgMessage(const wchar_t* _msg)
 {
-	wcscpy_s(DbgMessage, _msg);
+	wcscpy_s(FPSDbgMessage, _msg);
+}
+
+void Engine::Architecture::CDebugObject::SetMouseDbgMessage(const wchar_t* _msg)
+{
+	wcscpy_s(MouseDbgMessage, _msg);
 }
 
 std::shared_ptr<Engine::CObject> Engine::Architecture::CDebugObject::Create(const shared_ptr<DxDevice> _device)

@@ -21,9 +21,11 @@ namespace Engine
 			virtual HRESULT Prepare_Phase();
 			virtual void Update_Phase(const shared_ptr<CTimer> _timer);
 			virtual void LateUpdate_Phase(const shared_ptr<CTimer> _timer);
-			virtual void Render_Phase();
-		private:
+			virtual void Render_Phase(ID3D12GraphicsCommandList* cmdlist);
+		
 
+		public:
+			static shared_ptr<CPhase> Create(const shared_ptr<DxDevice> _device);
 		};
 	}
 }

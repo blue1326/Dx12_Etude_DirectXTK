@@ -71,6 +71,7 @@
 #include "SpriteFont.h" 
 //#include "VertexTypes.h"
 
+#pragma comment(lib,"RuntimeObject.lib")
 #pragma comment(lib,"../../../bin/System.lib")
 
 

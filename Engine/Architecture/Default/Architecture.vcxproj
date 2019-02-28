@@ -112,7 +112,10 @@
     <ClInclude Include="..\Headers\Phase.h" />
     <ClInclude Include="..\Headers\Phase_Load.h" />
     <ClInclude Include="..\Headers\Phase_Stage.h" />
+    <ClInclude Include="..\Headers\PlexibleObject.h" />
     <ClInclude Include="..\Headers\ResourceLoader.h" />
+    <ClInclude Include="..\Headers\Script.h" />
+    <ClInclude Include="..\Headers\Script_Test.h" />
     <ClInclude Include="..\Headers\Templates.h" />
     <ClInclude Include="..\Headers\UIObject.h" />
     <ClInclude Include="stdafx.h" />
@@ -130,7 +133,10 @@
     <ClCompile Include="..\Source\Phase.cpp" />
     <ClCompile Include="..\Source\Phase_Load.cpp" />
     <ClCompile Include="..\Source\Phase_Stage.cpp" />
+    <ClCompile Include="..\Source\PlexibleObject.cpp" />
     <ClCompile Include="..\Source\ResourceLoader.cpp" />
+    <ClCompile Include="..\Source\Script.cpp" />
+    <ClCompile Include="..\Source\Script_Test.cpp" />
     <ClCompile Include="..\Source\UIObject.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -8,7 +8,7 @@ CComponentHolder::CComponentHolder()
 
 CComponentHolder::~CComponentHolder()
 {
-	//Destroy();
+	Destroy();
 }
 
 bool CComponentHolder::InitComponents()

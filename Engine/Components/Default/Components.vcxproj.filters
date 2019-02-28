@@ -40,6 +40,12 @@
     <Filter Include="97.Object">
       <UniqueIdentifier>{53fdc28c-cffc-42f8-9fe2-285e9a7daabd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Components\05.Sprite">
+      <UniqueIdentifier>{a468d1d9-4d2f-49ba-83e6-7c1d863e7718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Components\06.Control">
+      <UniqueIdentifier>{a2f42baf-7aac-4840-9b14-b8eafab5ec28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -75,6 +81,12 @@
     <ClInclude Include="..\Headers\Object.h">
       <Filter>97.Object</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Sprite.h">
+      <Filter>00.Components\05.Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Control.h">
+      <Filter>00.Components\06.Control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -106,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\Object.cpp">
       <Filter>97.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Sprite.cpp">
+      <Filter>00.Components\05.Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Control.cpp">
+      <Filter>00.Components\06.Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

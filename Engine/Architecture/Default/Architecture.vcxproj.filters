@@ -40,6 +40,9 @@
     <Filter Include="02.Object\00.Object_Derived">
       <UniqueIdentifier>{73e0e79f-048d-4bdc-8177-c1dfe3b50003}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Scripts">
+      <UniqueIdentifier>{45fb2a84-35d3-4197-9724-bb7102022260}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -93,6 +96,15 @@
     <ClInclude Include="..\Headers\Object_LoadStatString.h">
       <Filter>02.Object\00.Object_Derived</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Script_Test.h">
+      <Filter>03.Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Script.h">
+      <Filter>03.Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\PlexibleObject.h">
+      <Filter>02.Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -139,6 +151,15 @@
     </ClCompile>
     <ClCompile Include="..\Source\Object_LoadStatString.cpp">
       <Filter>02.Object\00.Object_Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Script.cpp">
+      <Filter>03.Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Script_Test.cpp">
+      <Filter>03.Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\PlexibleObject.cpp">
+      <Filter>02.Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

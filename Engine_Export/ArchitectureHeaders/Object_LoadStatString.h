@@ -3,7 +3,7 @@
 #include "UIObject.h"
 
 namespace Engine
-{
+{ 
 	namespace Architecture
 	{
 		class CObject_LoadStatString : public CUIObject
@@ -29,7 +29,10 @@ namespace Engine
 
 		public:
 			static shared_ptr<CObject> Create(const shared_ptr<DxDevice> _device);
-		private:
+		
+		//private:
+		//	void tmp(void *fp ());
+		//	void (*fp)();
 
 		};
 

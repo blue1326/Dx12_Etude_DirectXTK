@@ -51,11 +51,11 @@
     <ClInclude Include="..\Headers\Main.h">
       <Filter>00.Main</Filter>
     </ClInclude>
-    <ClInclude Include="..\Headers\Derived_MainWnd.h">
-      <Filter>00.Main</Filter>
-    </ClInclude>
     <ClInclude Include="..\Headers\GenericHeader.h">
       <Filter>99.Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Derived_MainWnd.h">
+      <Filter>01.Window\00.MainWnd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +66,7 @@
       <Filter>00.Main</Filter>
     </ClCompile>
     <ClCompile Include="..\source\Derived_MainWnd.cpp">
-      <Filter>00.Main</Filter>
+      <Filter>01.Window\00.MainWnd</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

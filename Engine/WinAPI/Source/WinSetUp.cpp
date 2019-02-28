@@ -26,6 +26,7 @@ CMainWinSetUp::CMainWinSetUp(HINSTANCE hinstance)
 	, isSuspend(false)
 	, isMinimized(false)
 	, isfullscreen(false)
+	,AdditionalMsgProc(nullptr)
 {
 	wcscpy_s(m_WndCaption, L"d3d App");
 	g_MainWnd = this;
@@ -124,15 +125,19 @@ LRESULT WinSet::CMainWinSetUp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARA
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	default:
-		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
+	if (AdditionalMsgProc != nullptr)
+		AdditionalMsgProc(hwnd,msg,wParam,lParam);
 	return 0;
 }
 
 
 
 
+void WinSet::CMainWinSetUp::SetAdditionalMsgProc(LRESULT(*_msgproc)(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam))
+{
+	AdditionalMsgProc = _msgproc;
+}
 
 int WinSet::CMainWinSetUp::Run()
 {

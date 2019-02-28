@@ -7,6 +7,8 @@
 //mutex mtx;
 #include "Object_LoadStatString.h"
 #include "Object_LoadString.h"
+#include "Object_Logo.h"
+
 Engine::Architecture::CPhase_Load::CPhase_Load(const shared_ptr<DxDevice> _device)
 	:CPhase::CPhase(_device)
 {
@@ -21,12 +23,26 @@ Engine::Architecture::CPhase_Load::~CPhase_Load()
 HRESULT Engine::Architecture::CPhase_Load::Prepare_Phase()
 {
 
-	shared_ptr<CObject> obj = CObject_LoadStatString::Create(m_DxDevice);
-	AddObject(L"LoadStatText", obj);
+	shared_ptr<CObject> obj;
+	ReserveLayer(2);
+	obj.reset();
+	obj = CObject_Logo::Create(m_DxDevice);
+	AddObject(0,L"LogoSprite", obj);
+
+	
+
 	obj.reset();
 	obj = CObject_LoadString::Create(m_DxDevice);
-	AddObject(L"LoadText", obj);
+	AddObject(1,L"LoadText", obj);
+
+	obj.reset();
+	obj = CObject_LoadStatString::Create(m_DxDevice);
+	AddObject(1,L"LoadStatText", obj);
+	
+
+
 	InitObjects();
+
 	m_Loader = CResourceLoader::Create();
 
 	CResourceLoader::LoadElements tmpElements;
@@ -50,19 +66,25 @@ HRESULT Engine::Architecture::CPhase_Load::Prepare_Phase()
 void Engine::Architecture::CPhase_Load::Update_Phase(const shared_ptr<CTimer> _timer)
 {
 
-	auto statText = static_cast<CObject_LoadStatString*>(m_Objects[L"LoadStatText"].get());
+	auto statText = static_cast<CObject_LoadStatString*>((*(vecLayer[1].get()))[L"LoadStatText"].get());
 	const wchar_t* tmptext = m_Loader->GetLoadText();
 	if(wcscmp(tmptext, statText->GetLastText()) !=0 )
 	{
 		statText->PushText(tmptext);
 	}
 	
-
-	float tmp = m_Loader->GetLoadingPercentage();
-	bool tmp2 = m_Loader->GetLoadFlag();
-	if (tmp2 == true)
+	auto loadtext = static_cast<CObject_LoadString*>((*(vecLayer[1].get()))[L"LoadText"].get());
+	loadtext->SetLoadingPercentage(m_Loader->GetLoadingPercentage());
+	if (m_Loader->GetLoadFlag())
 	{
-		int i = 0;
+		loadtext->SetFlag(true);
+	}
+
+	if (loadtext->GetPhaseFlag())
+	{
+		m_NextPhase->Prepare_Phase();
+		isLive = false;
+		m_NextPhase->isLive = true;
 	}
 	CPhase::Update_Phase(_timer);
 }
@@ -74,7 +96,7 @@ void Engine::Architecture::CPhase_Load::LateUpdate_Phase(const shared_ptr<CTimer
 
 void Engine::Architecture::CPhase_Load::Render_Phase(ID3D12GraphicsCommandList* cmdlist)
 {
-	m_Objects[L"LoadStatText"]->Render_Object(cmdlist);
+	//m_Objects[L"LoadStatText"]->Render_Object(cmdlist);
 }
 
 std::shared_ptr<Engine::Architecture::CPhase> Engine::Architecture::CPhase_Load::Create(const shared_ptr<DxDevice> _device)

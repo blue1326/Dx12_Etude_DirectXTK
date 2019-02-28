@@ -49,6 +49,17 @@ HRESULT Engine::Architecture::CUIObject::AddComponent(const wchar_t* _tag, share
 	return S_OK;
 }
 
+HRESULT Engine::Architecture::CUIObject::CheckComponentNullptr()
+{
+	for (const auto &j : m_Components)
+	{
+		if (j.second == nullptr)
+			return E_FAIL;
+	}
+	
+	return S_OK;
+}
+
 void Engine::Architecture::CUIObject::Free()
 {
 	m_Components.clear();
