@@ -17,7 +17,6 @@ Engine::Architecture::CPhase_Load::CPhase_Load(const shared_ptr<DxDevice> _devic
 
 Engine::Architecture::CPhase_Load::~CPhase_Load()
 {
-		
 }
 
 HRESULT Engine::Architecture::CPhase_Load::Prepare_Phase()
@@ -43,7 +42,7 @@ HRESULT Engine::Architecture::CPhase_Load::Prepare_Phase()
 
 	InitObjects();
 
-	m_Loader = CResourceLoader::Create();
+	/*m_Loader = CResourceLoader::Create();
 
 	CResourceLoader::LoadElements tmpElements;
 	tmpElements[L"1"] = CRenderer::Create(m_DxDevice);
@@ -58,14 +57,14 @@ HRESULT Engine::Architecture::CPhase_Load::Prepare_Phase()
 	tmpElements[L"10"] = CRenderer::Create(m_DxDevice);
 
 	m_Loader->SetLoadElements(tmpElements);
-	m_Loader->LoadStart();
+	m_Loader->LoadStart();*/
 	
 	return S_OK;
 }
 
 void Engine::Architecture::CPhase_Load::Update_Phase(const shared_ptr<CTimer> _timer)
 {
-
+/*
 	auto statText = static_cast<CObject_LoadStatString*>((*(vecLayer[1].get()))[L"LoadStatText"].get());
 	const wchar_t* tmptext = m_Loader->GetLoadText();
 	if(wcscmp(tmptext, statText->GetLastText()) !=0 )
@@ -79,13 +78,13 @@ void Engine::Architecture::CPhase_Load::Update_Phase(const shared_ptr<CTimer> _t
 	{
 		loadtext->SetFlag(true);
 	}
-
-	if (loadtext->GetPhaseFlag())
-	{
-		m_NextPhase->Prepare_Phase();
-		isLive = false;
-		m_NextPhase->isLive = true;
-	}
+*/
+/*if (loadtext->GetPhaseFlag())
+{
+	m_NextPhase->Prepare_Phase();
+	isLive = false;
+	m_NextPhase->isLive = true;
+}*/
 	CPhase::Update_Phase(_timer);
 }
 

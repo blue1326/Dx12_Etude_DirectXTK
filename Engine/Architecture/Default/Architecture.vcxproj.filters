@@ -43,6 +43,9 @@
     <Filter Include="03.Scripts">
       <UniqueIdentifier>{45fb2a84-35d3-4197-9724-bb7102022260}</UniqueIdentifier>
     </Filter>
+    <Filter Include="80. Threading">
+      <UniqueIdentifier>{855385ff-8d63-4e35-92c3-45f5ab6dfdde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

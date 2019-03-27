@@ -13,6 +13,7 @@ Engine::Architecture::CResourceLoader::CResourceLoader()
 Engine::Architecture::CResourceLoader::~CResourceLoader()
 {
 	m_Thread->join();
+	//m_Thread->
 	m_LoadElements.clear();
 }
 
