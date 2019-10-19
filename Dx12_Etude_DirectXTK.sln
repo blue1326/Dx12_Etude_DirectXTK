@@ -36,6 +36,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Components", "Engine\Compon
 		{2369E98E-F495-4626-A1EC-6EA2CE88531E} = {2369E98E-F495-4626-A1EC-6EA2CE88531E}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.SystemAssist", "05.SystemAssist", "{74E285A9-E69F-4492-9645-51CCC891DFD8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "System_Assist", "Engine\System_Assist\default\System_Assist.vcxproj", "{CBE2EE3B-BC0E-4885-9A48-1EABEA97BF12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -62,6 +66,10 @@ Global
 		{A2DA8470-AFA1-44D4-94F4-84B42594D79D}.Debug|x64.Build.0 = Debug|x64
 		{A2DA8470-AFA1-44D4-94F4-84B42594D79D}.Release|x64.ActiveCfg = Release|x64
 		{A2DA8470-AFA1-44D4-94F4-84B42594D79D}.Release|x64.Build.0 = Release|x64
+		{CBE2EE3B-BC0E-4885-9A48-1EABEA97BF12}.Debug|x64.ActiveCfg = Debug|x64
+		{CBE2EE3B-BC0E-4885-9A48-1EABEA97BF12}.Debug|x64.Build.0 = Debug|x64
+		{CBE2EE3B-BC0E-4885-9A48-1EABEA97BF12}.Release|x64.ActiveCfg = Release|x64
+		{CBE2EE3B-BC0E-4885-9A48-1EABEA97BF12}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +80,7 @@ Global
 		{2369E98E-F495-4626-A1EC-6EA2CE88531E} = {3BD0C097-6483-4F03-9A95-C6254CB2C24A}
 		{6CE3029E-459A-4E75-8EE4-1A5A88135C7B} = {8C1C573C-912C-4AC8-8871-F34830E21A6C}
 		{A2DA8470-AFA1-44D4-94F4-84B42594D79D} = {695153F3-2F41-46FB-814C-7D95EFDEF4A9}
+		{CBE2EE3B-BC0E-4885-9A48-1EABEA97BF12} = {74E285A9-E69F-4492-9645-51CCC891DFD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {529E16EC-582C-49E0-B361-FB08B7EF7EF3}
