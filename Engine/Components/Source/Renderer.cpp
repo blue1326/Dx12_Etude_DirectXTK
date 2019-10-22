@@ -4,7 +4,7 @@
 Engine::Components::CRenderer::CRenderer(const shared_ptr<DxDevice> _device)
 	:CComponent_Device::CComponent_Device(_device)
 {
-
+	m_ThreadPool = CThreadHolder::GetInstance();
 }
 
 Engine::Components::CRenderer::~CRenderer()
@@ -52,7 +52,16 @@ void Engine::Components::CRenderer::RenderNoneAlpha(ID3D12GraphicsCommandList* c
 	for (const auto &j : m_RenderList[RENDER_NONEALPHA])
 	{
 		j->Render_Object(cmdlist);
-	}
+		/*	m_ThreadPool->SetTask(CThreadHolder::TASK_MAIN, std::bind(&CObject::Render_Object, j.get(), cmdlist));
+		}
+		m_ThreadPool->Awake_all();
+		while (true)
+		{
+			if (m_ThreadPool->GetTaskCnt(CThreadHolder::TASK_MAIN) == 0 && m_ThreadPool->GetRunningThreadCnt(CThreadHolder::TASK_MAIN) == 0)
+			{
+				break;
+			}*/
+		}
 }
 
 void Engine::Components::CRenderer::RenderUI(ID3D12GraphicsCommandList* cmdlist)
@@ -60,6 +69,15 @@ void Engine::Components::CRenderer::RenderUI(ID3D12GraphicsCommandList* cmdlist)
 	for (const auto &j : m_RenderList[RENDER_UI])
 	{
 		j->Render_Object(cmdlist);
+		/*	m_ThreadPool->SetTask(CThreadHolder::TASK_MAIN, std::bind(&CObject::Render_Object, j.get(), cmdlist));
+		}
+		m_ThreadPool->Awake_all();
+		while (true)
+		{
+			if (m_ThreadPool->GetTaskCnt(CThreadHolder::TASK_MAIN) == 0 && m_ThreadPool->GetRunningThreadCnt(CThreadHolder::TASK_MAIN) == 0)
+			{
+				break;
+			}*/
 	}
 }
 

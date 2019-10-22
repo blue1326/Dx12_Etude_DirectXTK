@@ -30,7 +30,10 @@
 #include <dxgi1_5.h>
 #endif
 
-
+#include <iostream>
+#include <condition_variable>
+#include <mutex>
+#include <functional>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <thread>
@@ -44,6 +47,8 @@
 #include <unordered_map>
 #include <string>
 #include <queue>
+#include <atomic>
+
 
 //#include <unordered_map>
 
@@ -80,6 +85,6 @@
 #pragma comment(lib,"RuntimeObject.lib")
 #pragma comment(lib,"../../../bin/System.lib")
 #pragma comment(lib,"../../../bin/Components.lib")
-
+#pragma comment(lib,"../../../bin/System_Assist.lib")
 using namespace std;
 // 여기서 프로그램에 필요한 추가 헤더를 참조합니다.

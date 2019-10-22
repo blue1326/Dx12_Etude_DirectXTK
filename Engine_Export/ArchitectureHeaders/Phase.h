@@ -4,6 +4,8 @@
 #include "DxDevice.h"
 #include "Timer.h"
 #include "Object.h"
+#include "CThreadHolder.h"
+using namespace ThreadPool;
 using namespace Engine::System;
 namespace Engine
 {
@@ -42,6 +44,8 @@ namespace Engine
 			HRESULT Prepare_NextPhase();
 		public:
 			void SetNextPhase(const shared_ptr<CPhase> _nextphase);
+		private:
+			shared_ptr<CThreadHolder> m_ThreadPool;
 		};
 
 		

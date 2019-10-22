@@ -73,7 +73,7 @@
 
 #pragma comment(lib,"RuntimeObject.lib")
 #pragma comment(lib,"../../../bin/System.lib")
-
+#pragma comment(lib,"../../../bin/System_Assist.lib")
 
 using namespace std;
 // 여기서 프로그램에 필요한 추가 헤더를 참조합니다.

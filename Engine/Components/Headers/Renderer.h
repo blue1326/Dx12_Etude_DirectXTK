@@ -4,7 +4,9 @@
 #include "Component_OnDevice.h"
 #include "DxDevice.h"
 #include "Object.h"
+#include "CThreadHolder.h"
 using namespace Engine::System;
+using namespace ThreadPool;
 namespace Engine
 {
 	namespace Components
@@ -41,6 +43,8 @@ namespace Engine
 		/*private:
 			const shared_ptr<DxDevice> m_DxDevice;*/
 
+		private:
+			shared_ptr<CThreadHolder> m_ThreadPool;
 		private:
 			typedef list<shared_ptr<CObject>>		RENDERLIST;
 			RENDERLIST				m_RenderList[RENDER_END];

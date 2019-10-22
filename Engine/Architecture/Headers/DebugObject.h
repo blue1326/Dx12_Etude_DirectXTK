@@ -34,6 +34,7 @@ namespace Engine
 		private:
 			wchar_t FPSDbgMessage[255];
 			wchar_t MouseDbgMessage[255];
+			wchar_t ThreadDbgMessage[255];
 		};
 
 		

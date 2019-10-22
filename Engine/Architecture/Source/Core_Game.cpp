@@ -10,6 +10,7 @@
 
 #include "Phase_Load.h"
 #include "Phase_Stage.h"
+
 //#include "Renderer.h"
 //using namespace Engine::System;
 using namespace Engine::Components;
@@ -23,11 +24,13 @@ Engine::Architecture::AppCore_Game::AppCore_Game() noexcept(false)
 {
 	m_Device = DxDevice::CreateDevice();
 	m_Device->RegisterDeviceNotify(this);
+	m_ThreadPool = CThreadHolder::GetInstance();
+	m_ThreadPool->SetAwakeMode(CThreadHolder::AWAKE_MANUALAWAKE);
 }
 
 Engine::Architecture::AppCore_Game::~AppCore_Game()
 {
-
+	
 	//static_cast<CControl*>(m_Control.get())->Reset();
 	CComponentHolder::GetInstance()->Destroy();
 	if (m_Device)
@@ -229,7 +232,7 @@ void Engine::Architecture::AppCore_Game::Update()
 			SetUp_ActivePhase();
 		}
 	}
-	
+	m_DebugObjects[L"Main"]->Update_Object(m_MainTimer);
 	//
 	PIXEndEvent();
 }

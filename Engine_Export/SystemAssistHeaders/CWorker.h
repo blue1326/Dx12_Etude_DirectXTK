@@ -1,4 +1,8 @@
-#pragma once
+#ifndef SystemAssist_CWorker_h__
+#define SystemAssist_CWorker_h__
+
+
+
 #include "CJopList.h"
 namespace ThreadPool
 {
@@ -54,3 +58,4 @@ namespace ThreadPool
 	};
 
 }
+#endif // CWorker_h__

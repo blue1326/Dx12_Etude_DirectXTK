@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;ARCHITECTURE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Headers;../Source;../../../Engine_Export;../../../Engine_Export/ComponentHeaders;../../../Engine_Export/SystemHeaders;../../../GenericHeaders</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Headers;../Source;../../../Engine_Export;../../../Engine_Export/ComponentHeaders;../../../Engine_Export/SystemAssistHeaders;../../../Engine_Export/SystemHeaders;../../../GenericHeaders</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

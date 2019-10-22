@@ -2,11 +2,14 @@
 #include "DebugObject.h"
 #include "ComponentHolder.h"
 #include "Font.h"
+#include "CThreadHolder.h"
+using namespace ThreadPool;
 using namespace DirectX;
 Engine::Architecture::CDebugObject::CDebugObject(const shared_ptr<DxDevice> _device)
 	:CObject::CObject(_device)
 	,FPSDbgMessage(L"")
 	,MouseDbgMessage(L"")
+	,ThreadDbgMessage(L"")
 {
 
 }
@@ -26,7 +29,10 @@ HRESULT Engine::Architecture::CDebugObject::Init_Object()
 
 void Engine::Architecture::CDebugObject::Update_Object(const shared_ptr<CTimer> _timer)
 {
-	
+	std::wstring dbgText =
+		L" RunningThreadCnt: " + to_wstring(CThreadHolder::GetInstance()->GetRunningThreadCnt(CThreadHolder::TASK_MAIN)) +
+		L"  ReservedTaskCnt: " + to_wstring(CThreadHolder::GetInstance()->GetTaskCnt(CThreadHolder::TASK_MAIN));
+	wcscpy_s(ThreadDbgMessage, dbgText.c_str());
 }
 
 void Engine::Architecture::CDebugObject::LateUpdate_Object(const shared_ptr<CTimer> _timer)
@@ -42,8 +48,10 @@ void Engine::Architecture::CDebugObject::Render_Object(ID3D12GraphicsCommandList
 	ID3D12DescriptorHeap* heaps[] = { font->GetHeap()->Heap() };
 	cmdlist->SetDescriptorHeaps(_countof(heaps),heaps);
 	font->GetBatch()->Begin(cmdlist);
+
 	font->GetFont()->DrawString(font->GetBatch(), FPSDbgMessage, XMFLOAT2(400, 10), DirectX::Colors::Red, DirectX::XMConvertToRadians(0));
 	font->GetFont()->DrawString(font->GetBatch(), MouseDbgMessage, XMFLOAT2(400, 20), DirectX::Colors::Red, DirectX::XMConvertToRadians(0));
+	font->GetFont()->DrawString(font->GetBatch(), ThreadDbgMessage, XMFLOAT2(400, 30), DirectX::Colors::Red, DirectX::XMConvertToRadians(0));
 
 	font->GetBatch()->End();
 	PIXEndEvent(cmdlist);

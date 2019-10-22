@@ -28,6 +28,11 @@
 #include <tchar.h>
 #include <map>
 #include <unordered_map>
+#include <thread>
+#include <condition_variable>
+#include <mutex>
+#include <atomic>
+
 
 //dx
 
@@ -68,3 +73,5 @@
 #include "Mouse.h"
 #include "GraphicsMemory.h"
 #include "SimpleMath.h"
+
+#pragma comment(lib,"../../bin/System_Assist.lib")

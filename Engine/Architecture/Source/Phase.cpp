@@ -7,7 +7,7 @@ Engine::Architecture::CPhase::CPhase(const shared_ptr<DxDevice> _device)
 	, isLive(false)
 	,m_NextPhase(nullptr)
 {
-
+	m_ThreadPool = CThreadHolder::GetInstance();
 }
 
 Engine::Architecture::CPhase::~CPhase()
@@ -21,7 +21,16 @@ void Engine::Architecture::CPhase::Update_Phase(const shared_ptr<CTimer> _timer)
 	{
 		for (const auto &j : *i.get())
 		{
-			j.second->Update_Object(_timer);
+			m_ThreadPool->SetTask(CThreadHolder::TASK_MAIN, std::bind(&CObject::Update_Object,j.second.get(),_timer));
+			 //j.second->Update_Object(_timer);
+		}
+	}
+	m_ThreadPool->Awake_all();
+	while (true)
+	{
+		if (m_ThreadPool->GetTaskCnt(CThreadHolder::TASK_MAIN) == 0 && m_ThreadPool->GetRunningThreadCnt(CThreadHolder::TASK_MAIN) == 0)
+		{
+			break;
 		}
 	}
 }
@@ -32,10 +41,18 @@ void Engine::Architecture::CPhase::LateUpdate_Phase(const shared_ptr<CTimer> _ti
 	{
 		for (const auto &j : *i.get())
 		{
-			j.second->LateUpdate_Object(_timer);
+			m_ThreadPool->SetTask(CThreadHolder::TASK_MAIN, std::bind(&CObject::LateUpdate_Object, j.second.get(), _timer));
+			//j.second->LateUpdate_Object(_timer);
 		}
 	}
-
+	m_ThreadPool->Awake_all();
+	while (true)
+	{
+		if (m_ThreadPool->GetTaskCnt(CThreadHolder::TASK_MAIN) == 0 && m_ThreadPool->GetRunningThreadCnt(CThreadHolder::TASK_MAIN) == 0)
+		{
+			break;
+		}
+	}
 }
 
 HRESULT Engine::Architecture::CPhase::AddObject(const unsigned int _LayerIdx, const wchar_t* _Objtag, shared_ptr<CObject> _Object)

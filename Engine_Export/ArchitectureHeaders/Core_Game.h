@@ -8,8 +8,12 @@
 #include "Component.h"
 #include "Object.h"
 #include "Phase.h"
+#include "CThreadHolder.h"
 using namespace Engine::System;
 using namespace Engine::Components;
+
+using namespace ThreadPool;
+
 namespace Engine
 {
 	namespace Architecture
@@ -83,6 +87,8 @@ namespace Engine
 			shared_ptr<CPhase> m_ActivePhase;
 			std::unique_ptr<DirectX::GraphicsMemory> m_graphicsMemory;
 			
+			shared_ptr<CThreadHolder> m_ThreadPool;
+
 		private://for FrameLimits
 			float m_fTimeAcc;
 			float m_CallPerSec;
